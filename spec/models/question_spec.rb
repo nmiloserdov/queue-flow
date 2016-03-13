@@ -6,11 +6,10 @@ RSpec.describe Question, type: :model do
   
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
-                         
-  describe "attributes" do
+      
+  question = Question.new(title: "Am i new rspec?", body: "Help me, i don't now")
 
-    question = Question.new(title: "Am i new rspec?", body: "Help me, i don't now")
-    
+  describe "attributes" do
     it "have right :title" do
       expect(question).to have_attributes(title: "Am i new rspec?")
     end  
@@ -30,4 +29,13 @@ RSpec.describe Question, type: :model do
     end
   end
   
+  describe "association" do
+    u1 = Answer.new(body: "maybe")
+    u2 = Answer.new(body: "no, you don't")
+    
+    it "have two answers" do
+      question.answers.push(u1,u2)
+      expect(question.answers).to match_array([u1,u2])
+    end
+  end
 end
