@@ -30,12 +30,12 @@ RSpec.describe Question, type: :model do
   end
   
   describe "association" do
-    u1 = Answer.new(body: "maybe")
-    u2 = Answer.new(body: "no, you don't")
+    a1 = Answer.new(body: "maybe")
+    a2 = Answer.new(body: "no, you don't")
     
     it "have two answers" do
       question.answers.push(u1,u2)
-      expect(question.answers).to match_array([u1,u2])
+      expect(question.answers).to match_array([a1,a2])
     end
   end
 end
