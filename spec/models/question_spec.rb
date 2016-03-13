@@ -7,9 +7,10 @@ RSpec.describe Question, type: :model do
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
       
-  question = Question.new(title: "Am i new rspec?", body: "Help me, i don't now")
+  question = Question.new(title: "Am i know rspec?", body: "Help me, i don't know")
 
   describe "attributes" do
+    
     it "have right :title" do
       expect(question).to have_attributes(title: "Am i new rspec?")
     end  
