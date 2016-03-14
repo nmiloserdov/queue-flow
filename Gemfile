@@ -14,7 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rubocop', require: false
 
-# gem 'capistrano-rails', group: :development
+gem 'slim-rails'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
