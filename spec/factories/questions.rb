@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :question do
     title "test"
-    body  "test"    
+    body  "test"   
   end
   
   factory :invalid_question, class:  "Question" do

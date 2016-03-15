@@ -1,18 +1,22 @@
 class AnswersController < ApplicationController
   
+  
   def create
     @answer = Answer.create(answer_params)
     if @answer.save 
-      redirect_to @answer.question
+      redirect_to question_path(@answer.question)
     else
-      render @answer.question
+      # alert message
+      redirect_to question_path(@answer.question)
     end
   end
   
-  private
+
   
-    def answer_params
-      params.require(:answer).permit(:title,:question_id)
-    end
+  private
+
+  def answer_params
+    params.require(:answer).permit(:body, :question_id)
+  end
   
 end
