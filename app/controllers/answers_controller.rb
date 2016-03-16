@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
     question = Question.find(params[:question_id])
     @answer = question.answers.new(answer_params)
     if @answer.save 
-      redirect_to question_path(@answer.question)
+      redirect_to @answer.question
     else
       # alert message
       render "questions/show", id: @answer.question
