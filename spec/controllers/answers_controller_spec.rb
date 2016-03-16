@@ -7,14 +7,15 @@ RSpec.describe AnswersController, type: :controller do
   describe 'POST #create' do
 
     context 'with valid params' do
-
+            
       it 'save answer to the database' do
-        expect { post :create, answer: attributes_for(:answer, question_id: question) }
-                      .to change(Answer, :count).by(1)
+        expect {  post :create, question_id: question, 
+                  answer: attributes_for(:answer) }
+            .to change(Answer, :count).by(1)
       end
       
       it 'redirect_to question' do
-        post :create, answer: attributes_for(:answer, question_id: question) 
+        post :create, question_id: question, answer: attributes_for(:answer)
         expect(response).to redirect_to question
       end
     end
@@ -24,14 +25,12 @@ RSpec.describe AnswersController, type: :controller do
       let(:invalid_answer) { create(:invalid_answer) }
       
       it 'dont save question in database' do
-        expect { post :create, answer: attributes_for(:invalid_answer,
-                                                      question_id: question) }
+        expect { post :create, question_id: question, answer: attributes_for(:invalid_answer) }
             .to_not change(Answer, :count)
       end
       
       it 'render question' do
-        post :create, answer: attributes_for(:invalid_answer, 
-                                              question_id: question)
+        post :create, question_id: question, answer: attributes_for(:invalid_answer)
         expect(response).to redirect_to question
       end
     end
@@ -42,13 +41,14 @@ RSpec.describe AnswersController, type: :controller do
   
     let(:answer) { create(:answer) }
   
-    it 'delete unswer' do
-      answer
-      expect { delete :destroy, id: answer }.to change(Answer, :count).by(-1)
+    it 'delete answer' do
+      question.answers << answer
+      expect { delete :destroy, question_id: question, id: answer }
+                    .to change(question.answers, :count).by(-1)
     end
     
     it 'redirect_to question answer' do
-      delete :destroy, id: answer 
+      delete :destroy, question_id: question, id: answer 
       expect(response).to redirect_to answer.question
     end
   end
