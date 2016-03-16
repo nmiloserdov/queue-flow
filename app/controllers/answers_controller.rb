@@ -7,17 +7,14 @@ class AnswersController < ApplicationController
       redirect_to question_path(@answer.question)
     else
       # alert message
-      redirect_to question_path(@answer.question)
+      render "questions/show", id: @answer.question
     end
   end
   
   def destroy
-    @answer = Answer.find(params[:id])
-    if @answer.destroy
-      redirect_to @answer.question
-    else
-      # render error
-    end
+    @answer = Answer.find(params[:id]).destroy
+    redirect_to @answer.question
+    # render messages
   end
   
   private
