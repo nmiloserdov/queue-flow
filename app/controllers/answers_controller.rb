@@ -1,13 +1,13 @@
 class AnswersController < ApplicationController
   
   def create
-    question = Question.find(params[:question_id])
-    @answer = question.answers.new(answer_params)
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.new(answer_params)
     if @answer.save 
       redirect_to @answer.question
     else
       # alert message
-      render "questions/show", id: @answer.question
+      render "questions/show"
     end
   end
   
