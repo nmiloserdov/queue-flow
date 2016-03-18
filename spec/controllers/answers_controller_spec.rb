@@ -4,8 +4,8 @@ RSpec.describe AnswersController, type: :controller do
 
   let(:question) { create(:question) }
   let(:answer) { create(:answer) }
-
-
+  
+ 
   describe 'POST #create' do
 
     context 'with valid params' do

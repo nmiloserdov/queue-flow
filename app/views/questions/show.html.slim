@@ -1,0 +1,13 @@
+.question-container.show-container
+  h1.title-question= @question.title
+  p.body-question=  @question.body
+.answer-container
+  - @answers.each do |answer| 
+    .answer-container
+      p.body-answer= answer.body  
+.add-answer-container
+= form_for [@question, @answer] do |f| 
+  = f.label :body
+  = f.text_area :body
+  
+  = f.submit 'Add'
