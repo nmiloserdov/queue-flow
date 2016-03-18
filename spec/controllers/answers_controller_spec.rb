@@ -7,7 +7,7 @@ RSpec.describe AnswersController, type: :controller do
   
  
   describe 'POST #create' do
-
+    sign_in_user
     context 'with valid params' do
 
       it 'save answer to the database' do
@@ -43,7 +43,7 @@ RSpec.describe AnswersController, type: :controller do
   end
   
   describe 'DELETE #destroy' do  
-  
+    sign_in_user
     it 'delete answer' do
       answer
       expect { delete :destroy, question_id: question, id: answer }

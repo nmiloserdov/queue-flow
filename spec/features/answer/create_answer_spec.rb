@@ -18,7 +18,10 @@ feature 'User create anwer' do
   end
   
   scenario 'non-authentigicated user create answer' do
-    
+    visit question_path @question
+    fill_in "Body", with: "another answer"
+    click_on 'Add'
+    expect(page.all('p.body-answer', text: "another answer")).to be_empty 
   end
     
 end
