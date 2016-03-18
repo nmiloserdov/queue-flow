@@ -14,11 +14,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rubocop', require: false
 
+gem 'devise'
+
 gem 'slim-rails'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
+  gem 'launchy'
 end
 
 group :development, :test do
