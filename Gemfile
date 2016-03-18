@@ -18,6 +18,7 @@ gem 'slim-rails'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'capybara'
 end
 
 group :development, :test do

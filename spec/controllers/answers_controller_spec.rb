@@ -55,5 +55,5 @@ RSpec.describe AnswersController, type: :controller do
       expect(response).to redirect_to answer.question
     end
   end
-  
+    
 end
