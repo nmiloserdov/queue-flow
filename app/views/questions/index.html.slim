@@ -1,5 +1,16 @@
-p= link_to 'Ask question', new_question_path
-- @questions.each do |question|
-  .question-cont
-    .title-question= question.title
-    .body-question=  question.body
+.container
+  .col-md-6.col-md-offset-3
+    .top-menu-second
+      p= link_to 'Ask question', new_question_path
+  - @questions.each do |question|
+      
+      .question-cont.col-md-6.col-md-offset-3
+        .title-question= question.title
+        .body-question= question.body
+        .info-container
+          .answer-link
+            = link_to "see more ->>", question
+          .answer-count
+            span answers:
+            = question.answers.count
+          
