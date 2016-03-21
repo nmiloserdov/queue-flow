@@ -12,6 +12,7 @@ class AnswersController < ApplicationController
       redirect_to @answer.question
     else
       # alert message
+      flash[:alert] = "Answr not created."
       render "questions/show"
     end
   end
@@ -24,7 +25,7 @@ class AnswersController < ApplicationController
       flash[:notice] = "Your answer is deleted."
       redirect_to @answer.question
     else
-      flash[:notice] = "You cant delete your answer"
+      flash[:notice] = "You cant delete not your answer"
       redirect_to @answer.question
     end
   end
