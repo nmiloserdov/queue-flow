@@ -15,7 +15,11 @@ RSpec.describe AnswersController, type: :controller do
                               answer: attributes_for(:answer) }
             .to change(question.answers, :count).by(1)
       end
-      
+     
+      it 'assigns answer to @user.answer' do
+        expect { post :create, question_id: question, answer: attributes_for(:answer) }.to change(@user.answers, :count).by(1)
+      end
+
       it 'redirect_to question' do
         post :create, question_id: question, 
                              answer: attributes_for(:answer)
@@ -44,12 +48,13 @@ RSpec.describe AnswersController, type: :controller do
   
   describe 'DELETE #destroy' do  
     sign_in_user
-    it 'delete answer' do
-      answer
-      expect { delete :destroy, question_id: question, id: answer }
-                    .to change(Answer, :count).by(-1)
+
+    it 'not delete if you are not owner of answer' do 
+      @user.answers.push(answer)
+      expect { delete :destroy, question_id: question, id: answer}
+      .to change(@user.answers, :count).by(-1)
     end
-    
+
     it 'redirect_to question answer' do
       delete :destroy, question_id: question, id: answer 
       expect(response).to redirect_to answer.question
