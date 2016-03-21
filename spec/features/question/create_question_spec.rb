@@ -9,12 +9,12 @@ feature 'Create question', %q{
 
   scenario 'Authentificated user create question' do
     sign_in(user)
-    
     visit questions_path
     click_on 'Ask question'
     fill_in 'Title', with: 'test title'
     fill_in 'Body',  with: 'test body'
     click_on 'Ask'
+
     expect(page).to have_content 'Your question successfully created.'
   end  
   
@@ -24,5 +24,4 @@ feature 'Create question', %q{
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
-    
 end

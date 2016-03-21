@@ -21,7 +21,7 @@ feature 'User create anwer' do
     visit question_path @question
     fill_in "Body", with: "another answer"
     click_on 'Add'
-    expect(page.all('p.body-answer', text: "another answer")).to be_empty 
+    expect(page).to have_content("You need to sign in or sign up before continuing.")
   end
     
 end
