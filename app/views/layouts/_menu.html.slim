@@ -19,7 +19,7 @@ nav.navbar.navbar-default
             - if current_user
               = link_to destroy_user_session_path, method: :delete
                 i.fa.fa-user
-                = @user.email.sub(/@.*./,'')
+                = current_user.cut_name 
                 |  | log out
             -else
               = link_to new_user_session_path

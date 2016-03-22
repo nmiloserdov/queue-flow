@@ -23,15 +23,6 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to render_template :index
       end      
     end
-    
-    context 'when user log in' do
-      sign_in_user
-      before { get :index }
-      
-      it 'assigns user to @user' do
-        expect(assigns(:user)).to eq(@user)
-      end 
-    end
 
   end
   
@@ -84,11 +75,7 @@ RSpec.describe QuestionsController, type: :controller do
     sign_in_user    
     
     context "with valid attributes" do
-      it "saves the new question in the database" do
-        expect { post :create, question: attributes_for(:question) }
-            .to change(Question, :count).by(1)
-      end
-      
+     
       it 'assign question to @user.questions' do
         expect { post :create, question: attributes_for(:question) } 
         .to change(@user.questions,:count).by(1)
@@ -138,11 +125,12 @@ RSpec.describe QuestionsController, type: :controller do
     end
     
     context 'invalid attributes' do
+      let(:old_question) { question }
       before { patch :update, id: question, question: { title: 'title', body: nil} }
       it "dont't change question attributes" do
         question.reload
-        expect(question.title).to eq "test"
-        expect(question.body).to eq "test"
+        expect(question.title).to eq old_question.title
+        expect(question.body).to eq old_question.body
       end
       
       it 'redirect_to edit view' do
@@ -155,14 +143,14 @@ RSpec.describe QuestionsController, type: :controller do
     sign_in_user          
 
     it 'user delete his question' do
-      @user.questions.push(question)
+      @user.questions << question
       expect { delete :destroy, id: question }
                             .to change(@user.questions, :count).by(-1) 
     end
   
     it 'user delete not his question' do
       expect { delete :destroy, id: question }
-                            .to change(Question, :count).by(1)   
+                            .to change(question.user.questions, :count).by(0)   
     end  
 
     it 'redirect to view' do

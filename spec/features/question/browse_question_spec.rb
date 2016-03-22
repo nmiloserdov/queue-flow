@@ -6,28 +6,29 @@ feature 'User can brouse question', %q{
    
   
   scenario 'user browse questions#index' do
+    
+    @questions = create_list(:question, 3) 
 
-    3.times { Question.create( attributes_for :question) }
-  
     visit questions_path
-  
-    expect(page.all('div.title-question').count).to eq 3
-    expect(page.all('div.body-question').count).to eq 3
+    
+    @questions.each do |question| 
+      expect(page).to have_content question.title
+      expect(page).to have_content question.body
+    end
   end
   
   scenario 'user browse question and answers for them' do
-    question = Question.create( attributes_for :question )
-    
-    3.times { Answer.create( attributes_for :answer, 
-                              question_id: question.id ) }
-    
+    question = create(:question)
+    answers  = create_list(:answer, 3, question: question) 
+
     visit question_path question
+
+    expect(page).to have_content question.title
+    expect(page).to have_content question.body
     
-    expect(page.all('h1.title-question', text: question.title))
-                                             .not_to be_empty
-    expect(page.all('p.body-question', text: question.body))
-                                          .not_to be_empty
-    expect(page.all('p.body-answer').count).to eq(4)    
+    answers.each do |answer|
+      expect(page).to have_content answer.body
+    end
   end
   
 end

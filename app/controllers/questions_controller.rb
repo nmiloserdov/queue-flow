@@ -2,15 +2,15 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show ]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
-  before_action :load_user
   
   def index
     @questions = Question.all
   end
   
   def show
-    @answer  = @question.answers.new
     @answers = @question.answers
+    @answer = Answer.new
+    #@answer  = @question.answers.new
   end
   
   def new
@@ -20,9 +20,8 @@ class QuestionsController < ApplicationController
   def edit; end
   
   def create 
-    @question = Question.new(question_params)
+    @question = Question.new(question_params.merge(user: current_user))
     if @question.save
-      @user.questions.push(@question)
       flash[:notice] = 'Your question successfully created.'
       redirect_to @question
     else
@@ -40,13 +39,12 @@ class QuestionsController < ApplicationController
   end
   
   def destroy
-    if @user.questions.include?(@question) and @question.destroy
+    if current_user.author_of?(@question) and @question.destroy
       flash[:notice] = "Your question successfully deleted."
-      redirect_to questions_path 
     else
       flash[:notice] = "You'r cant delete not your question."
-      redirect_to questions_path
     end
+    redirect_to questions_path
   end 
   
   private
@@ -58,8 +56,4 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:title,:body)
     end
-    
-    def load_user
-      @user = current_user
-    end 
 end

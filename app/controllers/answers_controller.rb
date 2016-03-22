@@ -5,9 +5,8 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params.merge(user: current_user))
     if @answer.save 
-      current_user.answers.push(@answer)
       flash[:notice] = "Answer successfully added."      
       redirect_to @answer.question
     else
@@ -18,16 +17,13 @@ class AnswersController < ApplicationController
   end
   
   def destroy
-
     @answer = Answer.find(params[:id])
-    if current_user.answers.include?(@answer)
-      @answer.destroy
+    if current_user.author_of?(@answer) and @answer.destroy
       flash[:notice] = "Your answer is deleted."
-      redirect_to @answer.question
     else
       flash[:notice] = "You cant delete not your answer"
-      redirect_to @answer.question
     end
+    redirect_to @answer.question
   end
   
   private

@@ -50,9 +50,14 @@ RSpec.describe AnswersController, type: :controller do
     sign_in_user
 
     it 'not delete if you are not owner of answer' do 
-      @user.answers.push(answer)
       expect { delete :destroy, question_id: question, id: answer}
-      .to change(@user.answers, :count).by(-1)
+                      .to change(@user.answers, :count).by(0)
+    end
+
+    it 'delete answer' do
+      @user.answers << (answer)
+      expect { delete :destroy, question_id: question, id: answer}
+                      .to change(@user.answers, :count).by(-1)
     end
 
     it 'redirect_to question answer' do

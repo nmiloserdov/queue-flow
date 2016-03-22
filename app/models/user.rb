@@ -6,4 +6,13 @@ class User < ActiveRecord::Base
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def author_of?(post)
+    self.id == post.user_id
+  end
+  
+  def cut_name
+    self.email.sub(/@.*./,'')
+  end
 end
+

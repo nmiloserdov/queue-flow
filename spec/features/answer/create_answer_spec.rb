@@ -6,7 +6,7 @@ feature 'User create anwer' do
   given(:answer) { create :answer }
   
   before do
-    @question = Question.create attributes_for :question
+    @question = create(:question)
   end
   
   scenario 'authenticated user create answer' do
@@ -14,14 +14,14 @@ feature 'User create anwer' do
     visit question_path @question
     fill_in "Body", with: "another answer"
     click_on 'Add'
-    expect(page.all('p.body-answer', text: "another answer")).not_to be_empty
+    within 'p.body-answer' do
+      expect(page).to have_content('another answer')
+    end
   end
   
   scenario 'non-authentigicated user create answer' do
     visit question_path @question
-    fill_in "Body", with: "another answer"
-    click_on 'Add'
-    expect(page).to have_content("You need to sign in or sign up before continuing.")
+    expect(page).to have_content("You need to sign in or sign up before continuing")
   end
     
 end
