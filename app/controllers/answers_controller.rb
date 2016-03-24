@@ -1,20 +1,26 @@
 class AnswersController < ApplicationController
   
+  before_action :authenticate_user!, only: [:create, :destroy]
+  
+
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.new(answer_params.merge(user: current_user))
     if @answer.save 
-      redirect_to @answer.question
+      flash[:notice] = "Answer successfully added."      
     else
-      # alert message
-      render "questions/show"
+      flash[:alert] = "Answr not created."
     end
   end
   
   def destroy
-    @answer = Answer.find(params[:id]).destroy
+    @answer = Answer.find(params[:id])
+    if current_user.author_of?(@answer) && @answer.destroy
+      flash[:notice] = "Your answer is deleted."
+    else
+      flash[:notice] = "You cant delete not your answer"
+    end
     redirect_to @answer.question
-    # render messages
   end
   
   private

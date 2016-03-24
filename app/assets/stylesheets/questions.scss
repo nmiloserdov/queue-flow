@@ -1,3 +1,116 @@
-// Place all the styles related to the questions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* nav bar
+ ************************
+*/ 
+p,span{
+  font-family: 'PT sans';
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: 'PT sans';
+}
+label{
+  font-family: 'PT sans';
+}
+.navbar-default{
+  background-color: #546a52;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.navbar-header{
+  .navbar-brand {
+    color: white;
+    font-family: 'PT sans';
+    font-size: 22px;
+    &:hover, &:active{
+      color:white;
+    }
+    span{
+      font-family: "BREE serif", Helvetica, sans-serif;
+      font-size: 30px;
+      text-transform: uppercase;
+      color: white;
+    }
+  }
+}
+.navbar-right{
+  li a{
+    color: white!important;
+    font-family: 'pt sans';
+    font-size: 15px;
+    i{
+      margin-right: 5px;
+    }
+  }
+}
+.top-menu-second{
+  margin-top: 20px;
+  padding-bottom: 20px;
+  font-size: 17px;
+  text-transform: lowercase;
+  a{
+    color: #3A3A3A;
+  }
+}
+.question-cont{
+  background-color: #E3E3E3;  
+  padding:20px;
+  .title-question{
+    width:100%;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .info-container{
+    .answer-link{
+      float: left;
+      margin-top: 5px;
+      a{
+        color:#737373;
+        &:hover{
+          color:#474747;
+        }
+      }
+    }
+    .answer-count{
+      margin-left: 80%;
+      span{
+        margin-right: 5px;
+        color:#737373;
+      }
+    } 
+  }
+}
+.answer-cont{
+  background-color: #EFEFEF;
+  margin-top: 10px;
+  padding: 15px;
+  p.author{
+    font-weight: bold;
+    margin-left: 3px;
+  }
+  p.body-answer{
+    margin-left: 10px;
+  }
+}
+.add-answer{
+  margin-top: 20px;
+  textarea{
+    width:100%;
+  }
+}
+.footer-cont{
+  margin-top: 25px;
+  padding:15px;
+  background-color: #546a52;
+  float: bottom;
+  p{
+    color: #E4E4E4;
+    margin-left: 50px;
+    a{
+      color: #B2B2B2;
+      text-decoration: underline;
+      &:hover{
+        color:#7D7D7D;
+      }
+    }
+  }
+}
