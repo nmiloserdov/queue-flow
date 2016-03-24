@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -16,7 +16,6 @@ gem 'rubocop', require: false
 gem 'devise'
 
 gem 'slim-rails'
-gem "slim-rails"
 gem "therubyracer"
 gem "less-rails"               
 gem "twitter-bootstrap-rails"   
@@ -24,6 +23,7 @@ gem "font-awesome-rails"
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'selenium-webdriver'
   gem 'capybara'
   gem 'launchy'
 end

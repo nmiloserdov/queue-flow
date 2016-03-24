@@ -5,7 +5,7 @@ feature 'User can brouse question', %q{
   } do
    
   
-  scenario 'user browse questions#index' do
+  scenario 'user browse questions#index', js: true do
     
     @questions = create_list(:question, 3) 
 

@@ -20,6 +20,7 @@ class QuestionsController < ApplicationController
   def edit; end
   
   def create 
+    @question = current_user.questions.new(question_params)
     @question = Question.new(question_params.merge(user: current_user))
     if @question.save
       flash[:notice] = 'Your question successfully created.'
@@ -39,7 +40,7 @@ class QuestionsController < ApplicationController
   end
   
   def destroy
-    if current_user.author_of?(@question) and @question.destroy
+    if current_user.author_of?(@question) && @question.destroy
       flash[:notice] = "Your question successfully deleted."
     else
       flash[:notice] = "You'r cant delete not your question."

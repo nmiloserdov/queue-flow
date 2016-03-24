@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :answer do
-    body "test"
+    body
     question
     user
   end

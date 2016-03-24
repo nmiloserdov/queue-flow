@@ -2,14 +2,14 @@ require 'rails_helper'
 
 feature 'User create anwer' do
   
-  given(:user)   { create :user }
-  given(:answer) { create :answer }
+  let(:user)   { create :user }
+  let(:answer) { create :answer }
   
   before do
     @question = create(:question)
   end
   
-  scenario 'authenticated user create answer' do
+  scenario 'authenticated user create answer', js: true do
     sign_in user
     visit question_path @question
     fill_in "Body", with: "another answer"
