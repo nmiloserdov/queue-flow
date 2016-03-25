@@ -15,7 +15,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rubocop', require: false
 gem 'devise'
 
-gem 'slim-rails'
 gem "slim-rails"
 gem "therubyracer"
 gem "less-rails"               
