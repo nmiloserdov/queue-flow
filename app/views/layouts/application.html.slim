@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title QueueFlow | Ask the questions
+    link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'
+    link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true 
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true 
+    = csrf_meta_tags 
+  body
+    = render "layouts/menu"
+    .container
+      - if notice
+        p.alert.notice.alert-warning= notice
+      - elsif alert
+        p.alert.alert-danger= alert 
+      = yield
+    =render 'layouts/footer'

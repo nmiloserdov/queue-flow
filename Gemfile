@@ -13,16 +13,25 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rubocop', require: false
+gem 'devise'
 
-# gem 'capistrano-rails', group: :development
+gem 'slim-rails'
+gem "slim-rails"
+gem "therubyracer"
+gem "less-rails"               
+gem "twitter-bootstrap-rails"   
+gem "font-awesome-rails"
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
   gem 'byebug'
 end
 
