@@ -9,7 +9,7 @@ feature 'User create anwer' do
     @question = create(:question)
   end
   
-  scenario 'authenticated user create answer' do
+  scenario 'authenticated user create answer', js: true do
     sign_in user
     visit question_path @question
     fill_in "Body", with: "another answer"

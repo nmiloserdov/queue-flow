@@ -12,18 +12,14 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'save answer to the database' do
         expect {  post :create, question_id: question, 
-                              answer: attributes_for(:answer) }
+                                answer: attributes_for(:answer),
+                                format: :js }
             .to change(question.answers, :count).by(1)
       end
      
       it 'assigns answer to @user.answer' do
-        expect { post :create, question_id: question, answer: attributes_for(:answer) }.to change(@user.answers, :count).by(1)
-      end
-
-      it 'redirect_to question' do
-        post :create, question_id: question, 
-                             answer: attributes_for(:answer)
-        expect(response).to redirect_to question
+        expect { post :create, question_id: question, 
+              answer: attributes_for(:answer), format: :js }.to change(@user.answers, :count).by(1)
       end
     end
     
@@ -33,14 +29,9 @@ RSpec.describe AnswersController, type: :controller do
       
       it 'dont save question in database' do
         expect { post :create, question_id: question, 
-                        answer: attributes_for(:invalid_answer) }
+                      answer: attributes_for(:invalid_answer),
+                      format: :js }
             .to_not change(Answer, :count)
-      end
-      
-      it 're-render question' do
-        post :create, question_id: question, 
-                          answer: attributes_for(:invalid_answer)
-        expect(response).to render_template "questions/show", id: question
       end
     end
     
