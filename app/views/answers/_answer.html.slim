@@ -1,0 +1,4 @@
+.answer-cont.col-md-6.col-md-offset-3
+  p.author= answer.user.cut_name
+  p.body-answer= answer.body
+  = link_to "delete", answer_path(answer), method: :delete
