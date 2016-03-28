@@ -25,7 +25,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  # gem 'selenium-webdiver'
 end
 
 group :development, :test do
@@ -33,6 +33,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug'
+  gem 'capybara-webkit'
 end
 
 group :development do
