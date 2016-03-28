@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../feature_helper'
 
 feature 'User create anwer' do
   
@@ -24,4 +24,12 @@ feature 'User create anwer' do
     expect(page).to have_content("You need to sign in or sign up before continuing")
   end
     
+  scenario 'user try to create invalid answer', js: true do
+    sign_in user
+    visit question_path @question
+    click_on 'Add'
+    expect(page).to have_content("Body can't be blank.")
+  end
+
 end
+

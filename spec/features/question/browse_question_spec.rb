@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../feature_helper'
 
 feature 'User can brouse question', %q{
   Non-authenticated User can browse questions
