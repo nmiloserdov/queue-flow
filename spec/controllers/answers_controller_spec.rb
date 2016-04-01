@@ -52,6 +52,10 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.body).to eq 'updated_body'
       end
       
+      it 'render update template' do
+       patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+       expect(response).to render_template :update
+     end 
     end
     
     context 'invalid attributes' do
