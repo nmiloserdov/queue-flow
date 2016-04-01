@@ -4,7 +4,7 @@
   .information
     .author-container
       | author: 
-      /=#  @question.user.email
+      =  @question.user.cut_name
     .delete-container
       - if !(current_user.nil?) and @question.user_id == current_user.id
         = link_to "delete", question_path(@question), method: :delete

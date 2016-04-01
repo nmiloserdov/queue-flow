@@ -1,4 +1,14 @@
 .answer-cont.col-md-6.col-md-offset-3
   p.author= answer.user.cut_name
   p.body-answer= answer.body
-  = link_to "delete", answer_path(answer), method: :delete
+  .edit-links
+    .edit-cont 
+      - if current_user && current_user.author_of?(answer)
+        = link_to "edit", '', data: { answer_id: answer.id}, class: "update-answer-link" 
+        .edit-form-answer
+          .answer_errors
+          = form_for answer, method: :patch, remote: true, html: { id: "edit-answer-#{ answer.id }", class: "hidden" } do |f|
+            = f.label :body
+            = f.text_area :body
+            = f.submit 'update'
+        = link_to "delete", answer_path(answer), method: :delete

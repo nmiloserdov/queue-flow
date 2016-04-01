@@ -36,6 +36,35 @@ RSpec.describe AnswersController, type: :controller do
     end
     
   end
+
+  describe 'PATCH #update' do
+    sign_in_user    
+    
+    context 'valid attributes' do
+      it 'assigns the requested answer to @answer' do
+        patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+        expect(assigns(:answer)).to eq(answer)
+      end
+      
+      it 'change question attributes' do
+        patch :update, id: answer, question_id: question, answer: { body: "updated_body"}, format: :js
+        answer.reload
+        expect(answer.body).to eq 'updated_body'
+      end
+      
+    end
+    
+    context 'invalid attributes' do
+      let(:old_answer) { create(:answer) }
+      it "dont't change answer attributes" do
+        patch :update, id: answer ,question_id: question, answer: { body: nil }, format: :js
+        answer.reload
+        expect(answer.body).to eq old_answer.body
+      end
+    
+    end
+
+  end
   
   describe 'DELETE #destroy' do  
     sign_in_user
