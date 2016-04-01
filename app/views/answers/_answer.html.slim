@@ -4,11 +4,6 @@
   .edit-links
     .edit-cont 
       - if current_user && current_user.author_of?(answer)
-        = link_to "edit", '', data: { answer_id: answer.id}, class: "update-answer-link" 
-        .edit-form-answer
-          .answer_errors
-          = form_for answer, method: :patch, remote: true, html: { id: "edit-answer-#{ answer.id }", class: "hidden" } do |f|
-            = f.label :body
-            = f.text_area :body
-            = f.submit 'update'
+        = link_to "edit", '', data: { answer_id: answer.id, answer_body: answer.body}, class: "update-answer-link" 
+        div class="edit-form-cont-#{answer.id}"
         = link_to "delete", answer_path(answer), method: :delete
