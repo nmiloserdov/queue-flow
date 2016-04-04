@@ -23,8 +23,8 @@ class AnswersController < ApplicationController
   end
   
   def update
-    @question = @answer.question
     if @answer.update(answer_params)
+      @question = @answer.question
       flash[:notice] = "Your answer updated"
     else
       flash[:alert]  = "Your answer not-updated"

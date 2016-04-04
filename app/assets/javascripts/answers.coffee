@@ -6,6 +6,7 @@ $ ->
  $('.update-answer-link').click (e) ->
    e.preventDefault()
    $(this).hide()
+   $('.update-answer-link').hide()
    answer_id = $(this).data('answerId')
    answer_body = $(this).data('answerBody')
    $('.edit-form-cont-' + answer_id).html('

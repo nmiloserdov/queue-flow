@@ -32,7 +32,12 @@ feature 'Edit answer' do
         fill_in 'Body', with: "updated answer"
         click_on 'update'
         expect(page).to have_content "updated answer"
-      
+      end
+    end
+
+    scenario "try to edit two answer", js: true do
+      within ".answer-container" do
+        expect(page).not_to have_content('edit')
       end
     end
 

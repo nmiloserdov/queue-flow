@@ -32,10 +32,10 @@ class QuestionsController < ApplicationController
   
   def update
     if @question.update(question_params)
-      redirect_to @question
+      flash[:notice] = "Your question successfuly updated."
     else
-      render :edit
-    end 
+      flash[:alert] = "Your question not updated."
+    end
   end
   
   def destroy

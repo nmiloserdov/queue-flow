@@ -4,6 +4,7 @@
   .edit-links
     .edit-cont 
       - if current_user && current_user.author_of?(answer)
-        = link_to "edit", '', data: { answer_id: answer.id, answer_body: answer.body}, class: "update-answer-link" 
+        = link_to "edit", '', data: { answer_id: answer.id, answer_body: answer.body}, 
+                                                      class: "update-answer-link" 
         div class="edit-form-cont-#{answer.id}"
         = link_to "delete", answer_path(answer), method: :delete

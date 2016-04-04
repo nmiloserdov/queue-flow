@@ -8,6 +8,11 @@
     .delete-container
       - if !(current_user.nil?) and @question.user_id == current_user.id
         = link_to "delete", question_path(@question), method: :delete
+        = link_to "edit",   '', class: "update-question-link",
+                                data: { question_id:    @question.id,
+                                        question_title: @question.title,
+                                        question_body:  @question.body }
+    .edit-question-form
 .answer-container
   = render @question.answers
 .add-answer.col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4
