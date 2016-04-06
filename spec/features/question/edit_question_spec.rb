@@ -7,7 +7,7 @@ feature 'user edit question' do
 
   context 'with valid params' do
 
-    scenario "user edit question" do
+    scenario "user edit question" , js: true do
      sign_in user
      visit question_path(question)
      click_on "edit"
@@ -15,6 +15,7 @@ feature 'user edit question' do
      fill_in "Title", with: "new title"
      fill_in "Body",  with: "new body"
      click_on "update"
+     save_and_open_page
      expect(page).to have_content("new title")
      expect(page).to have_content("new body")
     end
