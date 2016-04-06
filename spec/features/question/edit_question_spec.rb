@@ -12,17 +12,30 @@ feature 'user edit question' do
      visit question_path(question)
      click_on "edit"
 
-     fill_in "Title", with: "new title"
-     fill_in "Body",  with: "new body"
-     click_on "update"
-     save_and_open_page
+     within '.edit-question-form' do
+       fill_in "Title", with: "new title"
+       fill_in "Body",  with: "new body"
+       click_on "update"
+     end
      expect(page).to have_content("new title")
      expect(page).to have_content("new body")
     end
 
   end
 
-  context 'with invalid params'
+  scenario 'with invalid params', js: true do
+    sign_in user
+    visit question_path(question)
+    click_on "edit"
+
+    within '.edit-question-form' do
+      fill_in 'Title', with: ""
+      fill_in 'Body',  with: ""
+      click_on 'update'
+    end
+    expect(page).to have_content("Title can't be blank.")
+    expect(page).to have_content("Body can't be blank.")
+  end
   
 
 end
