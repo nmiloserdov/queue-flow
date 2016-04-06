@@ -23,5 +23,10 @@
       '</textarea>' +
       '<input type="submit" name="commit" value="update" /></form></div>'
      );
+    $('.delete-answer-link').click (function(e){
+       e.preventDefault();
+       answer_id = $(this).data('answerId');
+       $('.answer-'+ answer_id).hide();
+    }); 
   });
 <% end %>

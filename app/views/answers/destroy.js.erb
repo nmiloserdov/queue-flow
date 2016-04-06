@@ -1,15 +1,12 @@
 <% if @answer.errors.present? %>
-  <% @answer.errors.full_messages.each do |message| %>
-    $('.answer_errors').append('<%= j message %>'+'.');
-
-    
+  <%= @answer.errors.full_messages.each do |message| %>
+    $('.answer_errors').append('<%= j message %>' + '.');
   <% end %>
 <% else %>
-  $('.answer-container').append('<%= j render @answer %>');
-  $('#answer_body').val('');
   $('.delete-answer-link').click (function(e){
      e.preventDefault();
      answer_id = $(this).data('answerId');
      $('.answer-'+ answer_id).hide();
   }); 
 <% end %>
+
