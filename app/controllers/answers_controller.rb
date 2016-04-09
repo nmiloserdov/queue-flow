@@ -30,6 +30,15 @@ class AnswersController < ApplicationController
     end
   end
   
+  def best
+    @answer = Answer.find(params[:answer_id])
+    if current_user.author_of?(@answer.question)
+      @answer.make_best
+    else
+      render status: 403
+    end
+  end
+
   private
 
   def answer_params
