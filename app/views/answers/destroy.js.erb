@@ -1,0 +1,13 @@
+<% if @answer.errors.present? %>
+  <%= @answer.errors.full_messages.each do |message| %>
+    $('.answer_errors').append('<%= j message %>' + '.');
+  <% end %>
+<% else %>
+  $('.delete-answer-link').click (function(e){
+     e.preventDefault();
+     answer_id = $(this).data('answerId');
+     console.log(answer_id);
+     $('.answer-'+ answer_id).hide();
+  }); 
+<% end %>
+

@@ -1,0 +1,35 @@
+<% if @answer.errors.present? %>
+  <% @answer.errors.full_messages.each do |message| %>
+    $('.answer_errors').append('<%= j message %>'+'.');
+
+    
+  <% end %>
+<% else %>
+  $('.answers-container').append('<%= j render @answer %>');
+  $('#answer_body').val('');
+
+  $('.update-answer-link').click (function(e){
+    e.preventDefault();
+    console.log(this);
+    $(this).hide();
+    $('.update-answer-link').hide();
+    answer_id = $(this).data('answerId');
+    answer_body = $(this).data('answerBody');
+    $('.edit-form-cont-' + '<%= @answer.id %>').html(
+     '<div class="answer_errors"></div>'
+     + '<form id="edit-answer-71" action="/answers/' + '<%= @answer.id %>' + '" accept-charset="UTF-8" data-remote="true" method="post">'
+     + '<input name="utf8" type="hidden" value="&#x2713;" />'
+     + '<input type="hidden" name="_method" value="patch" />'
+        + '<label for="answer_body">Body</label>'
+        + '<textarea name="answer[body]" id="answer_body">'
+        + '<%= @answer.body %>' 
+        + '</textarea>'
+        + '<input type="submit" name="commit" value="update" /></form>'
+      + '</div>');
+  });
+  $('.delete-answer-link').click (function(e){
+    e.preventDefault()
+    answer_id = $(this).data('answerId')
+    $('.answer-'+ answer_id).hide()
+  });
+<% end %>

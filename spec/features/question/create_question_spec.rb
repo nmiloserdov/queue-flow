@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative '../feature_helper'
 
 feature 'Create question', %q{
   In oreder to get answer from community

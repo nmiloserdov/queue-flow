@@ -3,4 +3,16 @@ class Answer < ActiveRecord::Base
   belongs_to :user
     
   validates :body, :user_id, :question_id, presence: true
+
+  default_scope -> { order(best: :desc, created_at: :desc) }
+
+  def make_best
+    if self.question.answers.find_by(best: 1).nil?
+      self.update_attribute(:best, 1)
+    else
+      self.question.best_answer.update_attribute(:best, 0)
+      self.update_attribute(:best, 1)
+    end
+  end
+  
 end

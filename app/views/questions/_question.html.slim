@@ -1,0 +1,21 @@
+.question-cont.col-md-6.col-md-offset-3
+  h1.title-question= @question.title
+  p.body-question=  @question.body
+  .information
+    .author-container
+      | author: 
+      =  @question.user.cut_name
+    .delete-container
+      - if !(current_user.nil?) and @question.user_id == current_user.id
+        = link_to "delete", question_path(@question), method: :delete
+        = link_to "edit",   '', class: "update-question-link",
+                                data: { question_id:    @question.id,
+                                        question_title: @question.title,
+                                        question_body:  @question.body }
+    .edit-question-form.hidden
+      = form_for @question,method: :patch, remote: true do |f|
+        = f.label :title 
+        = f.text_field :title
+        = f.label :body
+        = f.text_area :body
+        = f.submit "update"
