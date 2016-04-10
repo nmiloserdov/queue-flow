@@ -3,7 +3,7 @@
     $('.answer_errors').append('<%= j message %>'+'.')
   <% end %>
 <% else %>
-  $('.answer-container').html('<%= j render @question.answers %>');
+  $('.answers-container').html('<%= j render @question.answers %>');
   $('.update-answer-link').show();
   $('.update-answer-link').click(function(e){
     $('.update-answer-link').hide()
@@ -23,10 +23,10 @@
       '</textarea>' +
       '<input type="submit" name="commit" value="update" /></form></div>'
      );
+    }); 
     $('.delete-answer-link').click (function(e){
        e.preventDefault();
        answer_id = $(this).data('answerId');
        $('.answer-'+ answer_id).hide();
-    }); 
-  });
+    });
 <% end %>

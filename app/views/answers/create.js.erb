@@ -5,7 +5,7 @@
     
   <% end %>
 <% else %>
-  $('.answer-container').append('<%= j render @answer %>');
+  $('.answers-container').append('<%= j render @answer %>');
   $('#answer_body').val('');
 
   $('.update-answer-link').click (function(e){

@@ -20,9 +20,8 @@ $ ->
         </textarea>
         <input type="submit" name="commit" value="update" /></form>
       </div>')
-   $('.delete-answer-link').click (e) ->
-     e.preventDefault()
-     answer_id = $(this).data('answerId')
-     $('.answer-'+ answer_id).hide()
-
+ $('.delete-answer-link').click (e) ->
+   e.preventDefault()
+   answer_id = $(this).data('answerId')
+   $('.answer-'+ answer_id).hide()
    return

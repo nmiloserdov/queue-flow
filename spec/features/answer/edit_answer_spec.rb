@@ -27,8 +27,7 @@ feature 'Edit answer' do
     end
     
     scenario "edit his answer with valid params", js: true do  
-      within ".answer-container" do
-        
+      within ".answers-container" do
         fill_in 'Body', with: "updated answer"
         click_on 'update'
         expect(page).to have_content "updated answer"
@@ -36,13 +35,13 @@ feature 'Edit answer' do
     end
 
     scenario "try to edit two answer", js: true do
-      within ".answer-container" do
+      within ".answers-container" do
         expect(page).not_to have_content('edit')
       end
     end
 
     scenario "edit his answer with invalid params", js: true do
-      within ".answer-container" do
+      within ".answers-container" do
         fill_in 'Body', with: ""
         click_on 'update'
         expect(page).to have_content("Body can't be blank.")

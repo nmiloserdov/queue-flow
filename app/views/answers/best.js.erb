@@ -3,5 +3,10 @@
     $('.answer_errors').append('<%= j message %>')
   <% end %>
 <% else %>
-  $('.answer-<%= @answer.id %>').addClass('best-answer-container')
+  $("div[class*='answer-cont']").each(function (i, el) {
+    if ($(el).hasClass('best-answer-container')) {
+      $(el).removeClass('best-answer-container');
+    }
+  });
+  $('.answer-<%= @answer.id %>').addClass('best-answer-container');
 <% end %>

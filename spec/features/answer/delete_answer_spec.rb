@@ -18,18 +18,13 @@ feature 'Delete answer' do
   end
 
   scenario "user delete his question", js: true do
-    # я не могу понять почему тест фейлится 
-    # в интерфейсе с такими же шагами все работает
-    # трейс ошибки:
-    # expected not to find text "test answer" in "user1 test answer edit delete"
-
     visit question_path(answer.question) 
 
     within ".answer-#{answer.id}" do
       click_link "delete"
     end
     
-    within ".answer-cont" do
+    within ".answers-container" do
       expect(page).not_to have_content(answer.body)
     end
   end
