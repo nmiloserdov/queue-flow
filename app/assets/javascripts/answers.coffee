@@ -2,8 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
- $('.update-answer-link').click (e) ->
+$(document).on 'page:update', ->
+  $('.update-answer-link').click (e) ->
    e.preventDefault()
    $(this).hide()
    $('.update-answer-link').hide()
@@ -20,8 +20,13 @@ $ ->
         </textarea>
         <input type="submit" name="commit" value="update" /></form>
       </div>')
- $('.delete-answer-link').click (e) ->
+  $('.delete-answer-link').click (e) ->
    e.preventDefault()
    answer_id = $(this).data('answerId')
    $('.answer-'+ answer_id).hide()
    return
+  $('.delete-answer-link').click ->
+    e.preventDefault()
+    answer_id = $(this).data('answerId')
+    $('.answer-'+ answer_id).hide()
+

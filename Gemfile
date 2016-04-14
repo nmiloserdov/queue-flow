@@ -20,6 +20,7 @@ gem "therubyracer"
 gem "less-rails"               
 gem "twitter-bootstrap-rails"   
 gem "font-awesome-rails"
+gem 'turbolinks'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
