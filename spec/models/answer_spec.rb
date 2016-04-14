@@ -16,7 +16,10 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of :user_id}  
   
   it "make answer best" do
-    expect{ answer.make_best }.to change{ answer.best }.to(true)
+    answer.best = true
+    answer.save
+    another_answer.save
+    expect{ another_answer.make_best; answer.reload }.to change{ answer.best }.to(false)
   end
 
   it "cancel a best answer when the new best answer for question is selected" do
