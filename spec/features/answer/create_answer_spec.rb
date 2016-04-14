@@ -12,6 +12,7 @@ feature 'User create anwer' do
   scenario 'authenticated user create answer', js: true do
     sign_in user
     visit question_path @question
+    click_on 'add answer'
     fill_in "Body", with: "another answer"
     click_on 'Add'
     within 'p.body-answer' do
@@ -27,6 +28,7 @@ feature 'User create anwer' do
   scenario 'user try to create invalid answer', js: true do
     sign_in user
     visit question_path @question
+    click_on 'add answer'
     click_on 'Add'
     expect(page).to have_content("Body can't be blank.")
   end
