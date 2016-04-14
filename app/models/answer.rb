@@ -7,11 +7,13 @@ class Answer < ActiveRecord::Base
   default_scope -> { order(best: :desc, created_at: :desc) }
 
   def make_best
-    if self.question.answers.find_by(best: 1).nil?
-      self.update_attribute(:best, 1)
-    else
-      self.question.best_answer.update_attribute(:best, 0)
-      self.update_attribute(:best, 1)
+    ActiveRecord::Base.transaction do
+      if self.question.answers.find_by(best: true).nil?
+        self.update_attribute(:best, true)
+      else
+        self.question.best_answer.update_attribute(:best, false)
+        self.update_attribute(:best, true)
+      end
     end
   end
   
