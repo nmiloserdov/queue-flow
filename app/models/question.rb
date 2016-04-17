@@ -5,6 +5,6 @@ class Question < ActiveRecord::Base
   validates  :title, :body, :user_id, presence: true
 
   def best_answer
-    self.answers.first
+    self.answers.find_by(best: true)
   end
 end

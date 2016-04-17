@@ -8,11 +8,11 @@ class Answer < ActiveRecord::Base
 
   def make_best
     ActiveRecord::Base.transaction do
-      if self.question.answers.find_by(best: true).nil?
-        self.update_attribute(:best, true)
+      if self.question.best_answer.nil?
+        self.update!(best: true)
       else
-        self.question.best_answer.update_attribute(:best, false)
-        self.update_attribute(:best, true)
+        self.question.best_answer.update!(best: false)
+        self.update!(best: true)
       end
     end
   end
