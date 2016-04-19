@@ -4,7 +4,7 @@
   p Attachments:
   ul
     - @question.attachments.each do |attach|
-      li = attach.file.file.filename
+      li = link_to attach.file.identifier, attach.file.url
 
   .information
     .author-container

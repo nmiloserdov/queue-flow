@@ -18,6 +18,7 @@ feature 'Add files to question' do
 
     click_on "Ask"
 
-    expect(page).to have_content 'spec_helper.rb'
+    expect(page).to have_link 'spec_helper.rb',
+      href: '/uploads/attachment/file/1/spec_helper.rb'
   end
 end
