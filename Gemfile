@@ -15,6 +15,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rubocop', require: false
 gem 'devise'
 
+# layout
 gem "slim-rails"
 gem "therubyracer"
 gem "less-rails"               
@@ -22,11 +23,13 @@ gem "twitter-bootstrap-rails"
 gem "font-awesome-rails"
 gem 'turbolinks'
 
+# upload
+gem 'carrierwave'
+
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
   gem 'launchy'
-  # gem 'selenium-webdiver'
 end
 
 group :development, :test do
