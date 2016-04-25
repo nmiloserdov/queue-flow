@@ -10,7 +10,7 @@ feature 'Add files to question' do
     visit new_question_path
   end
 
-  scenario 'User adds file when asks question' do
+  scenario 'User adds file while he is asking question' do
     fill_in 'Title', with: "Test question" 
     fill_in 'Body',  with: "Test question"
     
