@@ -25,6 +25,7 @@ gem 'turbolinks'
 
 # upload
 gem 'carrierwave'
+gem 'remotipart'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
