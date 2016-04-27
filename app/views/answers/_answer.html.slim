@@ -1,6 +1,11 @@
 div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.best? ? 'best-answer-container': ''}"
   p.author= answer.user.cut_name
   p.body-answer= answer.body
+  p Attachments:
+  ul
+    - answer.attachments.each do |attach|
+      li = link_to attach.file.identifier, attach.file.url
+      
   .edit-links
     - if current_user && current_user.author_of?(answer.question)
       = link_to 'best', answer_best_path(answer), method: :patch, remote: true
