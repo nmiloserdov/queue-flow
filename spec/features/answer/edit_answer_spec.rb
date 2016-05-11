@@ -29,8 +29,13 @@ feature 'Edit answer' do
     scenario "edit his answer with valid params", js: true do  
       within ".answers-container" do
         fill_in 'Body', with: "updated answer"
+        click_on 'add file'
+
+        attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
         click_on 'update'
         expect(page).to have_content "updated answer"
+        expect(page).to have_link 'spec_helper.rb',
+          href: '/uploads/attachment/file/1/spec_helper.rb'
       end
     end
 

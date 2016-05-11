@@ -13,12 +13,12 @@ feature 'Attach files for Answer' do
     click_on 'add answer'
     fill_in "Body", with: "Test answer"
 
+    click_on 'add file'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
-
     click_on "Add"
-    within '.answers-container' do    
-      expect(page).to have_link 'spec_helper.rb'
-    end
+
+    expect(page).to have_link 'spec_helper.rb',
+      href: '/uploads/attachment/file/1/spec_helper.rb'
   end
 
 

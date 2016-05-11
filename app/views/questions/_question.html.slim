@@ -16,9 +16,8 @@
         - if !(current_user.nil?) and @question.user_id == current_user.id
           = link_to "delete", question_path(@question), method: :delete
           = link_to "edit",   '', class: "update-question-link",
-                                  data: { question_id:    @question.id,
-                                          question_title: @question.title,
-                                        question_body:  @question.body }
+            data: { question_id: @question.id, question_title: @question.title,
+              question_body: @question.body }
   .edit-question-form.hidden
     = form_for @question, method: :patch, remote: true do |f|
       .edit-title-cont

@@ -10,8 +10,8 @@
           = f.label :body
           = f.text_area :body
       .attachments-cont.col-md-2.col-xs-4
-        label Attachnemts
         .attachments
+        label Attachnemts
         = link_to_add_association 'Add file',f, :attachments, 
           partial: "forms/attachment_fields",
           'data-association-insertion-method' => :append,
