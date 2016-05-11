@@ -39,7 +39,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', '~> 1.11'
 end
 
 group :development do
