@@ -1,10 +1,25 @@
 .question-errors
-.question-basic
-  = render @question
+  .question-basic
+    = render @question
 .answers-container
   = render @question.answers
 .add-answer.col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4
-  - if current_user
-    = link_to "add answer", '', data: { question_id: @question.id }, class: "add-answer-link"
-  - else
-    h3.warning You need to sign in or sign up before continuing
+  /* = semantic_fields_for @answer, method: :post do |f| */
+  /*   .edit-textarea-cont */
+  /*     = f.inputs do */ 
+  /*       = f.label :body */
+  /*       = f.text_area :body */
+  /*     .attachments-cont.col-md-2 */
+  /*       label Attachnemts */
+  /*       .attachments */
+  /*       = link_to_add_association 'add file', f, :attachments, */
+  /*         partial: "forms/attachment_fields", */
+  /*         'data-association-insertion-method' => :append, */
+  /*         'data-association-insertion-node' => ".attachments" */
+  /*       br */  
+  /*       = f.submit "update" */
+  div style= "clear:both"
+    - if current_user
+      = link_to "add answer", '', data: { question_id: @question.id }, class: "add-answer-link"
+    - else
+      h3.warning You need to sign in or sign up before continuing

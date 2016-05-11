@@ -11,7 +11,7 @@ div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.bes
       = link_to 'best', answer_best_path(answer), method: :patch, remote: true
     .edit-cont 
       - if current_user && current_user.author_of?(answer)
-        = link_to "edit", '', data: { answer_id: answer.id, answer_body: answer.body}, 
-                                                      class: "update-answer-link" 
+        = link_to "edit", '', data: { answer_id: answer.id, answer_body: answer.body, 
+          attachment_names: answer.attachments.map(&:file), attachment_ids: answer.attachments.map(&:id) }, class: "update-answer-link" 
         div class="edit-form-cont-#{answer.id}"
           = link_to "delete", answer_path(answer), data: {answer_id: answer.id}, method: :delete, remote: true, class: "delete-answer-link"
