@@ -5,5 +5,6 @@ $(document).on 'page:update', ->
   $('.update-question-link').click (e) ->
     e.preventDefault()
     $(this).hide()
+    $('.question').hide()
     $('.edit-question-form').removeClass('hidden')
     return
