@@ -1,0 +1,21 @@
+.question-cont.col-md-8.col-md-offset-2
+  .edit-question-form
+    = semantic_form_for @question do |f|
+      .edit-title-cont
+        = f.inputs do
+          = f.label :title
+          = f.text_field :title
+      .edit-textarea-cont
+        = f.inputs do
+          = f.label :body
+          = f.text_area :body
+      .attachments-cont.col-md-2.col-xs-4
+        label Attachnemts
+        .attachments
+        = link_to_add_association 'Add file',f, :attachments, 
+          partial: "forms/attachment_fields",
+          'data-association-insertion-method' => :append,
+          'data-association-insertion-node' => ".attachments"
+        br  
+        = f.submit 'Ask'
+  div style= "clear:both"
