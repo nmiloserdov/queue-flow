@@ -13,6 +13,7 @@ feature 'Attach files for Answer' do
     click_on 'add answer'
     fill_in "Body", with: "Test answer"
 
+    click_on 'Add file'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
 
     click_on "Add"

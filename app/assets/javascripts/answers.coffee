@@ -7,16 +7,8 @@ $(document).on 'page:update', ->
   $('.add-answer-link').click (e) ->
     e.preventDefault()
     $(this).hide()
-    question_id = $(this).data('questionId')
-    $('.add-answer').html('
-    <form class="new_answer" id="new_answer" action="/questions/'+ question_id + '/answers" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
-      <div class="answer_errors"></div>
-      <label for="answer_body">Body</label><br />
-      <label for="answer_file">File</label>
-      <input type="file" name="answer[attachments_attributes][0][file]" id="answer_file" />
-      <textarea name="answer[body]" id="answer_body"></textarea><br />
-      <input type="submit" name="commit" value="Add" class="btn btn-primary" />
-    </form>')
+    form = $('.add-answer-form').removeClass('hidden')
+    $('.add-answer').html(form)
     return
   $('.update-answer-link').click (e) ->
    e.preventDefault()
