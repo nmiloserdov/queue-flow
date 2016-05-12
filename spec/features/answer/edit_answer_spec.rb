@@ -29,7 +29,7 @@ feature 'Edit answer' do
     scenario "edit his answer with valid params", js: true do  
       within ".answers-container" do
         fill_in 'Body', with: "updated answer"
-        click_on 'add file'
+        click_on 'Add file'
 
         attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
         click_on 'update'
