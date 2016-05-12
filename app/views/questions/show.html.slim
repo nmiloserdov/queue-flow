@@ -1,6 +1,6 @@
 .question-errors
-.question-basic
-  = render @question
+  .question-basic
+    = render @question
 .answers-container
   = render @question.answers
 
@@ -9,6 +9,7 @@
     = link_to "add answer", '', data: { question_id: @question.id }, class: "add-answer-link"
   - else
     h3.warning You need to sign in or sign up before continuing
+
 .add-answer-form.hidden
   = semantic_form_for @answer, url: question_answers_path(@question),remote: true do |f|
     .answer_errors
