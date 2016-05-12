@@ -10,10 +10,10 @@ feature 'Attach files for Answer' do
   end
 
   scenario 'User attach photo for answer', js: true do
-    click_on 'add answer'
+    click_on 'Add answer'
     fill_in "Body", with: "Test answer"
 
-    click_on 'add file'
+    click_on 'Add file'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on "Add"
 

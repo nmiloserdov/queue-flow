@@ -7,24 +7,8 @@ $(document).on 'page:update', ->
   $('.add-answer-link').click (e) ->
     e.preventDefault()
     $(this).hide()
-    question_id = $(this).data('questionId')
-    $('.add-answer').html('
-    <form class="new_answer" id="new_answer" action="/questions/'+ question_id + '/answers" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
-     <div class="answer_errors"></div>
-     <div class="edit-textarea-cont"><fieldset class="inputs"><ol>
-     <label for="answer_body">Body</label><textarea name="answer[body]" id="answer_body">
-     </textarea></ol></fieldset>
-    <div class="attachments-cont col-md-2">
-    <label>Attachnemts</label>
-    <div class="attachments"></div>
-    <a data-association-insertion-method="append" data-association-insertion-node=".attachments" class="add_fields" data-association="attachment" data-associations="attachments" data-association-insertion-template="&lt;div class=&quot;nested-fields&quot;&gt;
-    &lt;div class=&quot;attachment-fileds&quot;&gt;
-    &lt;label for=&quot;answer_attachments_attributes_new_attachments_file&quot;&gt;File&lt;/label&gt;&lt;input type=&quot;file&quot; name=&quot;answer[attachments_attributes][new_attachments][file]&quot; id=&quot;answer_attachments_attributes_new_attachments_file&quot; /&gt;
-    &lt;/div&gt;
-    &lt;input type=&quot;hidden&quot; name=&quot;answer[attachments_attributes][new_attachments][_destroy]&quot; id=&quot;answer_attachments_attributes_new_attachments__destroy&quot; value=&quot;false&quot; /&gt;&lt;a class=&quot;remove_fields dynamic&quot; href=&quot;#&quot;&gt;remove&lt;/a&gt;
-    &lt;/div&gt;" href="#">add file</a><br /><input type="submit" name="commit" value="Add" />
-    </div>
-    </form>')
+    form = $('.add-answer-form').removeClass('hidden')
+    $('.add-answer').html(form)
     return
 
   $('.update-answer-link').click (e) ->

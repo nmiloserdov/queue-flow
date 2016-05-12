@@ -1,5 +1,1 @@
-<% if @attachment.destroy %>
-  $('.attachment-<%= @attachment.id %>').hide();
-<% else %>
-  $('.attachment-<%= @attachment.id %>').append("You can not remove this file")
-<% end %>
+$('.attachment-<%= @attachment.id %>').hide();
