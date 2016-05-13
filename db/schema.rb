@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318151741) do
+ActiveRecord::Schema.define(version: 20160419165611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,25 @@ ActiveRecord::Schema.define(version: 20160318151741) do
   create_table "answers", force: :cascade do |t|
     t.text     "body"
     t.integer  "question_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "user_id"
+    t.boolean  "best",        default: false
   end
 
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
   add_index "answers", ["user_id"], name: "index_answers_on_user_id", using: :btree
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "attachmentable_id"
+    t.string   "attachmentable_type"
+    t.string   "file"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "attachments", ["attachmentable_id"], name: "index_attachments_on_attachmentable_id", using: :btree
+  add_index "attachments", ["attachmentable_type"], name: "index_attachments_on_attachmentable_type", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.string   "title"
