@@ -10,7 +10,7 @@ feature 'Attach files for Answer' do
   end
 
   scenario 'User attach photo for answer', js: true do
-    click_on 'Add answer'
+    click_on 'add answer'
     fill_in "Body", with: "Test answer"
 
     click_on "Add file"
