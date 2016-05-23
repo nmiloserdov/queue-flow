@@ -22,11 +22,12 @@ gem "twitter-bootstrap-rails"
 gem "font-awesome-rails"
 gem 'turbolinks'
 gem 'formtastic'
+gem 'cocoon'
+gem "font-awesome-rails"
 
 # upload
 gem 'carrierwave'
 gem 'remotipart'
-gem 'cocoon'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
