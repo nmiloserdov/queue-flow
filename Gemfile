@@ -29,6 +29,7 @@ gem "font-awesome-rails"
 gem 'carrierwave'
 gem 'remotipart'
 
+
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
@@ -41,6 +42,8 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'byebug'
   gem 'capybara-webkit', '~> 1.11'
+  # workflow
+  gem 'guard-livereload', '~> 2.5', require: false
 end
 
 group :development do
