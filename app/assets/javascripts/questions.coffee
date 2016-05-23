@@ -8,3 +8,23 @@ $(document).on 'page:update', ->
     $('.question').hide()
     $('.edit-question-form').removeClass('hidden')
     return
+
+  # $('.upvote-btn').click (e) ->
+  #   e.preventDefault()
+  #   link = $(this).attr('href')
+  #   $.ajax(
+  #     url: link,
+  #     accepts: 'AJAX',
+  #     method: 'patch').done ->
+  #       $(this).addClass 'done'
+  #     return
+  #   return
+
+  # $('.downvote-btn').click (e) ->
+  #   return
+
+  # $('.upvote-btn').bind 'ajax:success', (e,data,status,xhr) ->
+  #   console.log("hi")
+  #   rating = $.parseJSON(xhr.respondText)
+  #   alert(rating)
+

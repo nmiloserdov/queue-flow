@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   resources :attachments, only: [:destroy]
   resources :questions do
+    patch :vote
     resources :answers, only: [:create, :destroy, :update,:edit], shallow: true do
       patch :best
     end

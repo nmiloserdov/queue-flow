@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show ]
-  before_action :load_question, only: [:show, :edit, :update, :destroy]
+  before_action :load_question, only: [:show, :edit, :update, :destroy, :vote]
   
   def index
     @questions = Question.all
@@ -47,11 +47,14 @@ class QuestionsController < ApplicationController
     end
     redirect_to questions_path
   end 
+
+  def vote; end
   
   private
   
     def load_question
-      @question = Question.find(params[:id])
+      question_id = params[:id] || params[:question_id]
+      @question = Question.find(question_id)
     end
     
     def question_params
