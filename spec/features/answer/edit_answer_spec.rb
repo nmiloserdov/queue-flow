@@ -12,7 +12,7 @@ feature 'Edit answer' do
 
     scenario "try to edit answer" do
       visit question_path(answer.question)
-      expect(page).to_not have_link 'edit'
+      expect(page).to_not have_link('.update-answer-link')
     end
   end
   
@@ -21,9 +21,7 @@ feature 'Edit answer' do
     before do
       sign_in user
       visit question_path(answer.question)
-      expect(page).to have_link('edit')
-      click_on 'edit'
-
+      page.find('.update-answer-link').trigger("click") 
     end
     
     scenario "edit his answer with valid params", js: true do  

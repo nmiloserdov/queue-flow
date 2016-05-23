@@ -12,17 +12,14 @@ feature 'Delete answer' do
   scenario "user don't delete not his question", js: true do
     visit question_path(foreign_answer.question)
 
-    within ".answer-#{foreign_answer.id}" do
-      expect(page).not_to have_link 'delete'
-    end
+    expect { page.find('.delete-answer-link') }
+      .to raise_error Capybara::ElementNotFound
   end
 
   scenario "user delete his question", js: true do
     visit question_path(answer.question) 
 
-    within ".answer-#{answer.id}" do
-      click_link "delete"
-    end
+    page.find('.delete-answer-link').trigger("click")
     
     within ".answers-container" do
       expect(page).not_to have_content(answer.body)

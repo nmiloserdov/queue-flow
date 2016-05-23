@@ -1,40 +1,51 @@
-.question-cont.col-md-6.col-md-offset-3
-  .row
-    h2.title-question= @question.title
-    .col-md-1.vote-container
-      = link_to question_vote_path(@question, type: :up), class: "upvote-btn", method: :patch do
-        i.fa.fa-sort-asc aria-hidden="true"
-      span.question-rating = @question.rang
-      = link_to question_vote_path(@question, type: :down), class: "downvote-btn", method: :post do
-      a class="downvote-btn" href="/questions/#{@question.id}/vote"
-        i.fa.fa-sort-desc aria-hidden="true"
-    .col-md-11
-      .question
-        .question-body-container
-          p.body-question=  @question.body
-          p Attachments:
-          ul
-            - @question.attachments.each do |attach|
-              li = link_to attach.file.identifier, attach.file.url
+.col-md-8.col-md-offset-2
+  .question-cont
+    .row
+      .col-md-12.col-sm-12.col-xs-12
+        .row
+          .rang-container.col-md-1.col-sm-1.col-xs-1
+            = link_to question_vote_path(question, type: :up), class: "upvote-btn", method: :patch do
+              i.fa.fa-sort-asc aria-hidden="true"
+            br
+            span.question-rating = question.rang
+            br
+            = link_to question_vote_path(question, type: :down), class: "downvote-btn", method: :post do
+              i.fa.fa-sort-desc aria-hidden="true"
+          .content-cont.col-md-10.col-sm-11.col-xs-11
+            .row 
+              .col-md-10.col-sm-10.col-xs-10
+                h4.title-question= question.title
+              .col-md-2.col-sm-2.col-xs-2
+                .edit-container
+                  - if !(current_user.nil?) and @question.user_id == current_user.id
+                    = link_to '', class: "update-question-link", data: { question_id: @question.id, 
+                      question_title: @question.title, question_body: @question.body } do
+                      i class="fa fa-pencil edit-button" aria-hidden="true"
+                    = link_to question_path(@question), class: "delete-question-link", method: :delete do
+                      i class="fa fa-times delete-button" aria-hidden="true"
+            p.body-question= question.body
+            - if @question.attachments.present?
+              ul
+              p attachments:
+              - @question.attachments.each do |attach|
+                li = link_to attach.file.identifier, attach.file.url
 
-        .information
-          .author-container
-            | author: 
-            =  @question.user.cut_name
-          .delete-container
-            - if !(current_user.nil?) and @question.user_id == current_user.id
-              = link_to "delete", question_path(@question), method: :delete
-              = link_to "edit",   '', class: "update-question-link",
-                data: { question_id: @question.id, question_title: @question.title,
-                  question_body: @question.body }
+        .info-container.col-md-8.col-sm-7.col-xs-8.col-md-offset-2.col-sm-offset-2.col-xs-offset-1
+          .pull-left
+            span.info-title author:
+            span.info-content= question.user.cut_name
+          .pull-right
+            .answer-count
+              span.info-title published:
+              span.info-content= question.created_at.strftime('%b %d, %R')
   .edit-question-form.hidden
     = form_for @question, method: :patch, remote: true do |f|
-      .edit-title-cont
+      .field
         = f.label :title 
-        = f.text_field :title
-      .edit-textarea-cont
+        = f.text_field :title, class: 'form-control'
+      .field
         = f.label :body
-        = f.text_area :body
+        = f.text_area :body, class: 'form-control', rows: "7"
       label Attachnemts
       br
       ul
@@ -45,5 +56,7 @@
       p
         = link_to_add_association 'Add file',f, :attachments, 
           partial: "forms/attachment_fields", "data-association-insertion-method" => :before
-      = f.submit "update"
-      = link_to 'cancel','#', class: 'cancel-edit-form'
+      .pull-left 
+        = f.submit "update", class: "btn btn-primary"
+      .pull-right 
+        = link_to 'cancel','#', class: 'btn btn-default cancel-edit-form'

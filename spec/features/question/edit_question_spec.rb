@@ -8,7 +8,7 @@ feature 'user edit question' do
   before do
     sign_in user
     visit question_path(question)
-    click_on "edit"
+    page.find('.update-question-link').trigger("click")
   end
   scenario "user edit question" , js: true do
    within '.edit-question-form' do

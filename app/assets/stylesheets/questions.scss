@@ -5,7 +5,8 @@ p,span{
   font-family: 'PT sans';
 }
 h1,h2,h3,h4,h5,h6{
-  font-family: 'PT sans';
+
+  font-family: 'Roboto condensed';
 }
 label{
   font-family: 'PT sans';
@@ -51,38 +52,55 @@ label{
     color: #3A3A3A;
   }
 }
+
+.rang-container{
+  text-align: center;
+  margin-top: 10px;
+  border-right: 1px solid silver;
+  line-height: 10px;
+  .upvote-btn      { color: #245C25; }
+  .question-rating { color: silver;  }
+  .downvote-btn    { color: #63231C; }
+}
+
 .question-cont{
-  background-color: #E3E3E3;  
-  padding:20px;
+  .content-cont{
+    padding-left: 20px;
+    .title-question {
+      padding-bottom: 6px;
+      border-bottom: 1px solid silver;
+    }
+  }
   .title-question{
     width:100%;
     font-weight: bold;
     margin-bottom: 5px;
   }
+
+  .info-title{
+    color: silver;
+  }
+  .info-content{
+    margin-left: 5px;
+  }
+  .edit-container{
+    margin-top: 5px;
+    .delete-button{
+      margin-left: 5px;
+      color: black;
+    }
+    .edit-button{
+      font-size: 13px;
+      color: black;
+    }
+  }
+
+
   .question-body-container{
     width: auto;
     height: auto;
     background-color: #FCFFFA;
     padding: 15px 10px;
-  }
-  .info-container{
-    .answer-link{
-      float: left;
-      margin-top: 5px;
-      a{
-        color:#737373;
-        &:hover{
-          color:#474747;
-        }
-      }
-    }
-    .answers-count{
-      margin-left: 80%;
-      span{
-        margin-right: 5px;
-        color:#737373;
-      }
-    } 
   }
   .edit-question-form{
     padding: 20px;
@@ -107,16 +125,9 @@ label{
   }
 }
 .answer-cont{
-  background-color: #EFEFEF;
   margin-top: 10px;
   padding: 15px;
-  p.author{
-    font-weight: bold;
-    margin-left: 3px;
-  }
-  p.body-answer{
-    margin-left: 10px;
-  }
+  border-left: 1px solid silver;
 }
 .add-answer{
   margin-top: 20px;

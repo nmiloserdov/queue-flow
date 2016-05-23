@@ -1,40 +1,48 @@
 div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.best? ? 'best-answer-container': ''}"
-  p.author= answer.user.cut_name
-  p.body-answer= answer.body
-  p Attachments:
-  ul
-    - answer.attachments.each do |attach|
-      li = link_to attach.file.identifier, attach.file.url
-      
-  .edit-links
-    - if current_user && current_user.author_of?(answer.question)
-      = link_to 'best', answer_best_path(answer), method: :patch, remote: true
-    .edit-cont 
+  .row
+    .col-md-10.col-sm-10.col-xs-9
+      = link_to answer_vote_path(answer, type: :up), class: "upvote-btn", method: :patch do
+        i.fa.fa-sort-asc aria-hidden="true"
+      span.question-rating = answer.rang
+      = link_to answer_vote_path(answer, type: :down), class: "downvote-btn", method: :post do
+        i.fa.fa-sort-desc aria-hidden="true"
+      span.info-content= answer.user.cut_name
+    .col-md-2.col-sm-2.col-xs-2.edit-container
       - if current_user && current_user.author_of?(answer)
-        = link_to "edit", '', data: { answer_id: answer.id, answer_body: answer.body, 
-          attachment_names: answer.attachments.map(&:file), attachment_ids: answer.attachments.map(&:id) }, class: "update-answer-link" 
-        div class="edit-form-cont-#{answer.id}"
-          = link_to "delete", answer_path(answer), data: {answer_id: answer.id}, method: :delete, remote: true, class: "delete-answer-link"
+        = link_to '', data: { answer_id: answer.id, answer_body: answer.body, 
+          attachment_names: answer.attachments.map(&:file), attachment_ids: answer.attachments.map(&:id) }, class: "update-answer-link"  do
+            i class="fa fa-pencil edit-button" aria-hidden="true"
+        = link_to answer_path(answer), data: {answer_id: answer.id}, method: :delete, remote: true, class: "delete-answer-link" do
+          i class="fa fa-times delete-button" aria-hidden="true"
+  p.body-answer= answer.body
+  - if answer.attachments.present?
+    p Attachments:
+    ul
+      - answer.attachments.each do |attach|
+        li = link_to attach.file.identifier, attach.file.url
+        
+    .edit-links
+      - if current_user && current_user.author_of?(answer.question)
+        = link_to 'best', answer_best_path(answer), method: :patch, remote: true
 
-    div class="edit-answer-#{answer.id}-form hidden"
-    
-
-      = semantic_form_for answer, url: answer_path(answer), method: :patch, remote: true do |f|
-        .answer_errors
-        = f.label :body
-        = f.text_field :body
-        .attachments-cont
-          label Attachnemts
-          - answer.attachments.each do |attachment|
-            div class="attachment-#{attachment.id}"
-              = attachment.file.identifier
-            = link_to "remove", attachment_path(attachment), method: :delete, remote: true,
-              class: "delete-attachment-link", data: { attacment_id: attachment.id }
-          .attachments
-          = link_to_add_association 'Add file',f, :attachments, 
-            partial: "forms/attachment_fields",
-            'data-association-insertion-method' => :append,
-            'data-association-insertion-node' => ".attachments"
-          br  
-          = f.submit 'update'
+div class="edit-answer-#{answer.id}-form hidden"
+  = semantic_form_for answer, url: answer_path(answer), method: :patch, remote: true do |f|
+    .answer_errors
+    .field
+      = f.label :body
+      = f.text_field :body, class: 'form-control'
+    .attachments-cont
+      label Attachnemts:
+      - answer.attachments.each do |attachment|
+        div class="attachment-#{attachment.id}"
+          = attachment.file.identifier
+        = link_to "remove", attachment_path(attachment), method: :delete, remote: true,
+          class: "delete-attachment-link", data: { attacment_id: attachment.id }
+      .attachments
+      = link_to_add_association 'Add file',f, :attachments, 
+        partial: "forms/attachment_fields",
+        'data-association-insertion-method' => :append,
+        'data-association-insertion-node' => ".attachments"
+      br  
+      = f.submit 'update', class: "btn btn-primary"
         div style="clear:both" 

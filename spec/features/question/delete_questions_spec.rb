@@ -7,14 +7,13 @@ feature "User delete answer" do
   
   
   
-  scenario "user delete his question" do
+  scenario "user delete his question", js: true do
     sign_in(user)
-
     visit new_question_path
     fill_in "Title", with: question.title
     fill_in "Body",  with: question.body
     click_on 'Ask'
-    click_link "delete"
+    page.find('.delete-question-link').trigger("click")
     expect(page).to have_content("Your question successfully deleted.")
   end
   
@@ -22,7 +21,7 @@ feature "User delete answer" do
     sign_in(user)
     question = create(:question)
     visit question_path(question)
-    expect(page).not_to have_content "delete"
+    expect(page).not_to have_link ".delete-question-link"
   end
   
 end
