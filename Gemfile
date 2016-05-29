@@ -19,7 +19,6 @@ gem "slim-rails"
 gem "therubyracer"
 gem "less-rails"               
 gem "twitter-bootstrap-rails"   
-gem 'turbolinks'
 gem 'formtastic'
 gem 'cocoon'
 gem "font-awesome-rails"
@@ -40,7 +39,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'byebug'
-  gem 'capybara-webkit', '~> 1.11'
+  gem 'poltergeist'
   # workflow
   gem 'guard-rails'
   gem 'guard-livereload', '~> 2.5', require: false
@@ -49,4 +48,5 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'pry-rails'
 end
