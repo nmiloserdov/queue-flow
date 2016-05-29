@@ -1,11 +1,13 @@
 div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.best? ? 'best-answer-container': ''}"
   .row
     .col-md-10.col-sm-10.col-xs-9
-      = link_to answer_vote_path(answer, type: :up), class: "upvote-btn", method: :patch do
-        i.fa.fa-sort-asc aria-hidden="true"
-      span.question-rating = answer.rang
-      = link_to answer_vote_path(answer, type: :down), class: "downvote-btn", method: :post do
-        i.fa.fa-sort-desc aria-hidden="true"
+      = link_to answer_vote_path(answer, type: :up), class: "upvote-btn", 
+        method: :patch, remote: true do
+          i.fa.fa-sort-asc aria-hidden="true"
+      = link_to answer_vote_path(answer, type: :down), class: "downvote-btn", 
+        method: :patch, remote: true do
+          i.fa.fa-sort-desc aria-hidden="true"
+      span class="answer-rating-#{answer.id}" =answer.rang
       span.info-content= answer.user.cut_name
     .col-md-2.col-sm-2.col-xs-2.edit-container
       - if current_user && current_user.author_of?(answer)

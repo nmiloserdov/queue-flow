@@ -25,7 +25,7 @@ RSpec.describe Vote, type: :model do
       expect { owner_as_vote }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    context "note creates vote if user voting twice" do
+    context "not creates vote if user voting twice" do
       it 'up vote' do
         2.times {
           create(:up_vote, user: user, votable: question)

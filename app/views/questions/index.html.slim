@@ -8,14 +8,6 @@
         .row
           .col-md-12.col-sm-12.col-xs-12
             .row
-              .rang-container.col-md-1.col-sm-1.col-xs-1
-                = link_to question_vote_path(question, type: :up), class: "upvote-btn", method: :patch do
-                  i.fa.fa-sort-asc aria-hidden="true"
-                br
-                span.question-rating = question.rang
-                br
-                = link_to question_vote_path(question, type: :down), class: "downvote-btn", method: :post do
-                  i.fa.fa-sort-desc aria-hidden="true"
               .content-cont.col-md-10.col-sm-11.col-xs-11
                 = link_to question do
                   h4.title-question= question.title

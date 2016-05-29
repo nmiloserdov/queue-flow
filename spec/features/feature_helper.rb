@@ -1,10 +1,8 @@
 require 'rails_helper'
+require 'capybara/poltergeist'
 
 RSpec.configure do |config|
-  Capybara.javascript_driver = :webkit
-  Capybara::Webkit.configure do |config|
-    config.block_unknown_urls
-  end
+  Capybara.javascript_driver = :poltergeist
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
