@@ -2,8 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on 'page:update', ->
-
+$ ->
   $('.add-answer-link').click (e) ->
     e.preventDefault()
     $(this).hide()
