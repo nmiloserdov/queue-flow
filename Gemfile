@@ -31,6 +31,7 @@ gem 'remotipart'
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
+  gem 'capybara-json'
   gem 'launchy'
 end
 

@@ -22,7 +22,8 @@ $ ->
   $('.delete-answer-link').click (e) ->
     e.preventDefault()
     answer_id = $(this).data('answerId')
-    $('.answer-'+ answer_id).hide()
+    $('.answer-'+ answer_id).remove()
+    $('.edit-answer-'+ answer_id + '-form').remove()
     return
 
   $('.delete-attachment-link').click (e) ->

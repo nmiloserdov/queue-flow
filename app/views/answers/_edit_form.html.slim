@@ -1,0 +1,21 @@
+div class="edit-answer-#{answer.id}-form hidden"
+  = semantic_form_for answer, url: answer_path(answer), method: :patch, remote: true do |f|
+    .answer_errors
+    .field
+      = f.label :body
+      = f.text_field :body, class: 'form-control'
+    .attachments-cont
+      label Attachnemts:
+      - answer.attachments.each do |attachment|
+        div class="attachment-#{attachment.id}"
+          = attachment.file.identifier
+        = link_to "remove", attachment_path(attachment), method: :delete, remote: true,
+          class: "delete-attachment-link", data: { attacment_id: attachment.id }
+      .attachments
+      = link_to_add_association 'Add file',f, :attachments, 
+        partial: "forms/attachment_fields",
+        'data-association-insertion-method' => :append,
+        'data-association-insertion-node' => ".attachments"
+      br  
+      = f.submit 'update', class: "btn btn-primary"
+        div style="clear:both" 
