@@ -2,8 +2,10 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 RSpec.configure do |config|
-  Capybara.javascript_driver = :poltergeist
-  Capybara.default_max_wait_time = 5
+  config.include WaitForAjax, type: :feature
+end
+
+RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
@@ -25,5 +27,6 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
+  Capybara.javascript_driver = :poltergeist
+  Capybara.default_max_wait_time = 5
 end
