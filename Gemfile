@@ -22,6 +22,8 @@ gem "twitter-bootstrap-rails"
 gem 'formtastic'
 gem 'cocoon'
 gem "font-awesome-rails"
+gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # upload
 gem 'carrierwave'
