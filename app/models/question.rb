@@ -12,13 +12,4 @@ class Question < ActiveRecord::Base
   def best_answer
     self.answers.find_by(best: true)
   end
-
-  private
-
-  def process_rang
-    votes = self.votes
-    positive = votes.where(vote_type: :up).count
-    negative = votes.where(vote_typw: :down).count
-    self.rang = positive - negative
-  end
 end
