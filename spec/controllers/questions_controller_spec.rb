@@ -143,18 +143,35 @@ RSpec.describe QuestionsController, type: :controller do
     it 'user delete his question' do
       @user.questions << question
       expect { delete :destroy, id: question }
-                            .to change(@user.questions, :count).by(-1) 
+        .to change(@user.questions, :count).by(-1) 
     end
   
     it 'user delete not his question' do
       expect { delete :destroy, id: question }
-                            .to change(question.user.questions, :count).by(0)   
+        .to change(question.user.questions, :count).by(0)   
     end  
 
     it 'redirect to view' do
       delete :destroy, id: question
       expect(response).to redirect_to questions_path
     end
-  
+  end
+
+  describe 'PATCH #vote' do
+    sign_in_user
+    let(:user) { create(:user) }
+    let(:owner_question) { create(:question, user: user) }
+
+    it 'render 200 when success' do
+      patch :vote, type: :up, question_id: question
+      expect(response).to have_http_status(200)
+    end
+    
+    it 'render 422 if error' do
+      owner_question.user = @user
+      owner_question.save
+      patch :vote, type: :down, question_id: owner_question
+      expect(response).to have_http_status(422)
+    end
   end
 end

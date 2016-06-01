@@ -7,8 +7,7 @@ module Voted
       render json: { rang: @vote.votable.rang,
         votable: votable_name, id: @vote.votable.id }
     else
-      render json: { errors: @vote.errors.full_messages,
-        votable: votable_name, id: @vote.votable.id }
+      render  json: { errors: @vote.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

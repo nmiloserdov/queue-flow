@@ -19,7 +19,7 @@
                 h4.title-question= question.title
               .col-md-2.col-sm-2.col-xs-2
                 .edit-container
-                  - if !(current_user.nil?) and @question.user_id == current_user.id
+                    - if current_user && current_user.author_of?(@question)
                     = link_to '', class: "update-question-link", data: { question_id: @question.id, 
                       question_title: @question.title, question_body: @question.body } do
                       i class="fa fa-pencil edit-button" aria-hidden="true"
