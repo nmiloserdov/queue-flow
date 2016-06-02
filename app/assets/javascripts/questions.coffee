@@ -1,4 +1,3 @@
-
 ready= ->
   $('.update-question-link').click (e) ->
     e.preventDefault()
@@ -17,6 +16,13 @@ ready= ->
       data = (data.responseJSON)
       data.errors.map (value, key) ->
         $.jGrowl(value)
+
+  PrivatePub.subscribe '/questions', (data, chanel) ->
+    question = $.parseJSON(data['question'])
+    # как рендерить темплейт?
+    $('.questions-container').prepend('<p>'+question.body+'<p>')
+    $('.questions-container').prepend('<p>'+question.title+'<p>')
+
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

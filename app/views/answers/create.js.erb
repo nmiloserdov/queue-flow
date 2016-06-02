@@ -4,7 +4,6 @@
   <% end %>
 <% else %>
   $('#answer_body').val('');
-  
   <% publish_to "/questions/#{@question.id}/answers" do %>
     $('.answers-container').append('<%= j render @answer %>');
   <% end %>
