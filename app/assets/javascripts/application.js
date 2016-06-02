@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.jgrowl.min.js
 //= require jquery.remotipart
+//= require private_pub
+//= require jquery.turbolinks
 //= require cocoon
 //= require twitter/bootstrap
 //= require turbolinks

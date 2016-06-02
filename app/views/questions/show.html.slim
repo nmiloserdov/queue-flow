@@ -24,3 +24,5 @@
           'data-association-insertion-node' => ".attachments"
         br  
         = f.submit 'Add'
+
+= subscribe_to "/questions/#{@question.id}/answers"
