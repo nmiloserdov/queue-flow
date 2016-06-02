@@ -23,7 +23,6 @@ ready= ->
     $('.questions-container').prepend('<p>'+question.body+'<p>')
     $('.questions-container').prepend('<p>'+question.title+'<p>')
 
-
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)
