@@ -29,6 +29,10 @@ gem 'jquery-turbolinks'
 gem 'carrierwave'
 gem 'remotipart'
 
+# readltime
+gem 'private_pub'
+gem 'thin'
+
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
