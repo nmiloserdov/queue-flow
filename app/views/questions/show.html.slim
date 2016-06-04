@@ -1,8 +1,24 @@
 .question-basic
   .question-errors
+  /* question */)
   = render @question
-  .answers-container
-    = render @question.answers
+  - if current_user
+    = link_to 'add comment', "#", class: "add-comment-btn", data: { type: :question, form_id: @question.id }
+  /* comments */
+
+
+  .col-md-8.col-md-offset-2
+    div class="comment-form comment-question-form-#{@question.id} hidden"
+      = form_for @comment, url: question_comments_path(@question), remote: true do |f|
+          = f.label :body
+          = f.text_field :body
+          = f.submit 'add', class: "form-sumbit"
+    = render 'comments/comments_section', commentable: @question
+
+  .col-md-8.col-md-offset-2
+    h3 Answers:
+    .answers-container
+      = render @question.answers
 
   .add-answer.col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4
     - if current_user

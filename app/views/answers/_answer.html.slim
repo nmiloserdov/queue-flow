@@ -1,4 +1,4 @@
-div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.best? ? 'best-answer-container': ''}"
+div class="answer-cont answer-#{answer.id} col-md-12 #{answer.best? ? 'best-answer-container': ''}"
   .row
 
     /* votes */
@@ -36,11 +36,13 @@ div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.bes
   = render 'comments/comments_section', commentable: answer
 
   = link_to 'add comment', '#', class: "add-comment-btn", data: { form_id: answer.id, type: :answer }
-  div class="comment-form comment-answer-form-#{answer.id} hidden"
-    = form_for @comment, url: answer_comments_path(answer), remote: true do |f|
-      = f.label :body
-      = f.text_field :body
-      = f.submit 'add'
+  
+  - if @comment
+    div class="comment-form comment-answer-form-#{answer.id} hidden"
+      = form_for @comment, url: answer_comments_path(answer), remote: true do |f|
+        = f.label :body
+        = f.text_field :body
+        = f.submit 'add'
 
 
 = render 'answers/edit_form', answer: answer

@@ -4,21 +4,26 @@ feature 'Delete comment' do
   
   given(:user)      { create :user }
   given!(:question) { create :question }
-  given(:comment)   { create :comment, commentable: question }
+  given!(:comment)  { create :comment, commentable: question, user: user }
 
-  scenario 'Authentificated user create question', js: true do
-    sign_in(user)
-    visit questions_path(question)
-    within '.question-basic' do
-      click_on 'delete'
-      expect(page).not_to have_content(comment.body)
-    end
-  end  
+  context 'authentificated user' do
+    scenario 'delete comment', js: true do
+      sign_in(user)
+      visit question_path(question)
+      within '.comments-section' do
+        click_on 'delete'
+        sleep(5)
+        expect(page).not_to have_content(comment.body)
+      end
+    end  
+  end
   
-  scenario 'Non-authentificated user try create question' do
-    visit questions_path
-    within '.question-basic' do
-      expect(page).not_to have_content("delete")
+  context 'non-authentificated user' do
+    scenario 'not delete comment', js: true do
+      visit question_path(question)
+      within '.comments-section' do
+        expect(page).not_to have_content("delete")
+      end
     end
   end
 end

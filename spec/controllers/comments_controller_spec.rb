@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
 
-  let(:user) { create(:user) }
-  let!(:question) { create(:question) }
-  let(:answer) { create(:answer) }
-  let!(:comment) { create(:comment, commentable: question) }
+  let!(:user)     { create(:user) }
+  let(:answer)    { create(:answer) }
+  let(:question) { create(:question) }
+  let(:comment)  { create(:comment, user: user, commentable: question) }
 
   describe "#create" do
     context 'when user sign in' do
@@ -61,9 +61,18 @@ RSpec.describe CommentsController, type: :controller do
         expect(assigns(:comment)).to eq(comment)
       end
 
+      it "assigns question to @question" do
+        delete :destroy, id: comment, format: :js
+        expect(assigns(:question)).to eq(question)
+      end
+
+      before do
+        create(:comment, user: @user)
+      end
+
       it "deletes" do
         expect { delete :destroy, id: comment, format: :js }
-          .to change{ Comment.count }.by(-1)
+          .to change(Comment, :count).by(-1)
       end
     end
   end
