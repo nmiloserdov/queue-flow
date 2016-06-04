@@ -1,4 +1,4 @@
-ready= ->
+$ ->
   $('.update-question-link').click (e) ->
     e.preventDefault()
     $(this).hide()
@@ -17,9 +17,8 @@ ready= ->
 
   $('.upvote-btn, .downvote-btn')
     .bind "ajax:success", (e, data, status, xhr) ->
-      if(Number.isInteger(data.rang))
-        selector = '.' + data.votable + '-rating-' + data.id
-        $(selector).html(data.rang)
+      selector = '.' + data.votable + '-rating-' + data.id
+      $(selector).html(data.rang)
       return
     .on "ajax:error", (e, data, status, xht) ->
       data = (data.responseJSON)
@@ -39,4 +38,4 @@ ready= ->
     # $('.questions-container').prepend('<p>'+question.body+'<p>')
     # $('.questions-container').prepend('<p>'+question.title+'<p>')
 
-$(document).on('page:update', ready)
+# $(document).on('page:load', ready)

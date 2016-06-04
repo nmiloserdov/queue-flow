@@ -9,6 +9,7 @@ feature 'user edit question' do
     sign_in user
     visit question_path(question)
     page.find('.update-question-link').click
+    # byebug
   end
   scenario "user edit question" , js: true do
     within '.edit-question-form' do

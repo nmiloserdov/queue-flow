@@ -11,6 +11,10 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
+if ENV['LOG'].present?
+  Rails.logger = ActiveRecord::Base.logger = Logger.new(STDOUT)
+end
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
