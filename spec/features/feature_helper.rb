@@ -8,6 +8,7 @@ end
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -27,6 +28,7 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
   Capybara.javascript_driver = :poltergeist
   Capybara.default_max_wait_time = 5
 end

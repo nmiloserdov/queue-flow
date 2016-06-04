@@ -5,7 +5,7 @@ RSpec.describe CommentsController, type: :controller do
   let(:user) { create(:user) }
   let!(:question) { create(:question) }
   let(:answer) { create(:answer) }
-  let!(:comment) { create(:comment) }
+  let!(:comment) { create(:comment, commentable: question) }
 
   describe "#create" do
     context 'when user sign in' do
@@ -59,11 +59,6 @@ RSpec.describe CommentsController, type: :controller do
       it "assings comment to @comment" do
         delete :destroy, id: comment, format: :js
         expect(assigns(:comment)).to eq(comment)
-      end
-
-      it "renders js" do
-        delete :destroy, id: comment, format: :js
-        expect(response).to render_template(:destroy)
       end
 
       it "deletes" do
