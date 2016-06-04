@@ -6,6 +6,15 @@ ready= ->
     $('.edit-question-form').removeClass('hidden')
     return
 
+  $('.add-comment-btn').click (e) ->
+    e.preventDefault()
+    $(this).hide()
+    form_id = $(this).data('formId')
+    type    = $(this).data('type')
+    $('.comment-' + type + '-form-' + form_id).removeClass("hidden")
+    $('.add-comment-btn').hide()
+    return
+
   $('.upvote-btn, .downvote-btn')
     .bind "ajax:success", (e, data, status, xhr) ->
       if(Number.isInteger(data.rang))
@@ -23,6 +32,11 @@ ready= ->
     $('.questions-container').prepend('<p>'+question.body+'<p>')
     $('.questions-container').prepend('<p>'+question.title+'<p>')
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+  PrivatePub.subscribe '/comments', (data, chanel) ->
+    console.log(data)
+    # question = $.parseJSON(data['question'])
+    # # как рендерить темплейт?
+    # $('.questions-container').prepend('<p>'+question.body+'<p>')
+    # $('.questions-container').prepend('<p>'+question.title+'<p>')
+
 $(document).on('page:update', ready)
