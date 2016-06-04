@@ -3,6 +3,7 @@
     .row
       .col-md-12.col-sm-12.col-xs-12
         .row
+          /* vote */
           .rang-container.col-md-1.col-sm-1.col-xs-1
             = link_to question_vote_path(question, type: :up), 
               class: "upvote-btn", method: :patch, remote: true do
@@ -17,6 +18,7 @@
             .row 
               .col-md-10.col-sm-10.col-xs-10
                 h4.title-question= question.title
+              /* edit links */
               .col-md-2.col-sm-2.col-xs-2
                 .edit-container
                     - if current_user && current_user.author_of?(@question)
@@ -26,12 +28,22 @@
                     = link_to question_path(@question), class: "delete-question-link", method: :delete do
                       i class="fa fa-times delete-button" aria-hidden="true"
             p.body-question= question.body
+            /* attachments */
             - if @question.attachments.present?
               ul
               p attachments:
               - @question.attachments.each do |attach|
                 li = link_to attach.file.identifier, attach.file.url
 
+            /* comments */
+            = link_to 'add comment', "#", class: "add-comment-btn", data: { type: :question, form_id: @question.id }
+            div class="comment-form comment-question-form-#{@question.id} hidden"
+              = form_for @comment, url: question_comments_path(@question), remote: true do |f|
+                  = f.label :body
+                  = f.text_field :body
+                  = f.submit 'add', class: "form-sumbit"
+
+        /* meta */
         .info-container.col-md-8.col-sm-7.col-xs-8.col-md-offset-2.col-sm-offset-2.col-xs-offset-1
           .pull-left
             span.info-title author:
@@ -40,25 +52,8 @@
             .answer-count
               span.info-title published:
               span.info-content= question.created_at.strftime('%b %d, %R')
-  .edit-question-form.hidden
-    = form_for @question, method: :patch, remote: true do |f|
-      .field
-        = f.label :title 
-        = f.text_field :title, class: 'form-control'
-      .field
-        = f.label :body
-        = f.text_area :body, class: 'form-control', rows: "7"
-      label Attachnemts
-      br
-      ul
-        - @question.attachments.each do |attach|
-          li class="attachment-#{attach.id}"
-            = attach.file.identifier
-            = link_to "remove", attachment_path(attach), method: :delete, remote: true
-      p
-        = link_to_add_association 'Add file',f, :attachments, 
-          partial: "forms/attachment_fields", "data-association-insertion-method" => :before
-      .pull-left 
-        = f.submit "update", class: "btn btn-primary"
-      .pull-right 
-        = link_to 'cancel','#', class: 'btn btn-default cancel-edit-form'
+
+  = render 'comments/comments_section', commentable: @question
+
+  = render 'questions/edit_form'
+
