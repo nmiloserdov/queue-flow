@@ -1,8 +1,5 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 ready= ->
+
   $('.add-answer-link').click (e) ->
     e.preventDefault()
     $(this).hide()
@@ -31,6 +28,5 @@ ready= ->
     attach_id = $(this).data('attachmentId')
     $(".attachment-#{attach_id}").hide()
     return
-$(document).ready(ready)
-$(document).on('page:load', ready)  # "вешаем" функцию ready на событие page:load
-$(document).on('page:update', ready) # "вешаем" функцию ready на событие page:update
+
+$(document).on('page:update', ready)

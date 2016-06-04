@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
     @answers = @question.answers
     @answer = Answer.new
     @answer.attachments.build
+    @comment = Comment.new
   end
   
   def new
@@ -25,8 +26,12 @@ class QuestionsController < ApplicationController
   def create 
     @question = Question.new(question_params.merge(user: current_user))
     if @question.save
-      flash[:notice] = 'Your question successfully created.'
-      redirect_to @question
+      respond_to do |format|
+        format.html do 
+          PrivatePub.publish_to "/questions", question: @question.to_json
+          redirect_to @question
+        end
+      end
     else
       flash[:error] = 'Your question not created.' 
       render :new 

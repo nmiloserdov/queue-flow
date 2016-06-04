@@ -1,0 +1,4 @@
+div class="comments-section comments-#{commentable.class.name.downcase}-#{commentable.id} col-md-8.col-md-offset-2"
+  - commentable.comments.each do |comment|
+    = render comment, commentable: commentable
+

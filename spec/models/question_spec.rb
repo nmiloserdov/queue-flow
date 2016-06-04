@@ -7,6 +7,7 @@ RSpec.describe Question, type: :model do
   let(:best_answer) { create(:answer, question: question, best: 1) }
 
   it { should have_many(:answers).dependent(:destroy) }
+  it { should have_many(:comments).dependent(:destroy) }
   it { should belong_to :user }
   it { should have_db_index :user_id}
   it { should have_many :attachments }

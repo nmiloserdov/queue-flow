@@ -1,5 +1,7 @@
-div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.best? ? 'best-answer-container': ''}"
+div class="answer-cont answer-#{answer.id} col-md-12 #{answer.best? ? 'best-answer-container': ''}"
   .row
+
+    /* votes */
     .col-md-10.col-sm-10.col-xs-9
       = link_to answer_vote_path(answer, type: :up), class: "upvote-btn", 
         method: :patch, remote: true do
@@ -9,6 +11,8 @@ div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.bes
           i.fa.fa-sort-desc aria-hidden="true"
       span class="answer-rating-#{answer.id}" =answer.rang
       span.info-content= answer.user.cut_name
+    /* edit links */
+
     .col-md-2.col-sm-2.col-xs-2.edit-container
       - if current_user && current_user.author_of?(answer)
         = link_to '', data: { answer_id: answer.id, answer_body: answer.body, 
@@ -17,6 +21,7 @@ div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.bes
         = link_to answer_path(answer), data: {answer_id: answer.id}, method: :delete, remote: true, class: "delete-answer-link" do
           i class="fa fa-times delete-button" aria-hidden="true"
   p.body-answer= answer.body
+  /* attachments */
   - if answer.attachments.present?
     p Attachments:
     ul
@@ -26,5 +31,18 @@ div class="answer-cont answer-#{answer.id} col-md-6 col-md-offset-3 #{answer.bes
     .edit-links
       - if current_user && current_user.author_of?(answer.question)
         = link_to 'best', answer_best_path(answer), method: :patch, remote: true
+
+  /* comments */
+  = render 'comments/comments_section', commentable: answer
+
+  = link_to 'add comment', '#', class: "add-comment-btn", data: { form_id: answer.id, type: :answer }
+  
+  - if @comment
+    div class="comment-form comment-answer-form-#{answer.id} hidden"
+      = form_for @comment, url: answer_comments_path(answer), remote: true do |f|
+        = f.label :body
+        = f.text_field :body
+        = f.submit 'add'
+
 
 = render 'answers/edit_form', answer: answer

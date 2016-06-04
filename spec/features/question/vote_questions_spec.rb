@@ -39,9 +39,9 @@ feature 'user votes question' do
   scenario "user cant vote for his question", js: true do
     sign_in user
     visit question_path(owner_question)
-    within '.answers-container' do
-      find('.upvote-btn').click()
-      expect(page).to have_content "Вы не можете голосовать за себя"
+    within '.question-cont' do
+      find('.upvote-btn').click
     end
+    expect(page).to have_content "Вы не можете голосовать за себя"
   end
 end

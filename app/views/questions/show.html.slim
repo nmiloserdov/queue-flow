@@ -1,13 +1,28 @@
 .question-basic
-  #spinner
   .question-errors
+  /* question */)
   = render @question
-  .answers-container
-    = render @question.answers
+  - if current_user
+    = link_to 'add comment', "#", class: "add-comment-btn", data: { type: :question, form_id: @question.id }
+  /* comments */
+
+
+  .col-md-8.col-md-offset-2
+    div class="comment-form comment-question-form-#{@question.id} hidden"
+      = form_for @comment, url: question_comments_path(@question), remote: true do |f|
+          = f.label :body
+          = f.text_field :body
+          = f.submit 'add', class: "form-sumbit"
+    = render 'comments/comments_section', commentable: @question
+
+  .col-md-8.col-md-offset-2
+    h3 Answers:
+    .answers-container
+      = render @question.answers
 
   .add-answer.col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4
     - if current_user
-      = link_to "add answer", '', data: { question_id: @question.id }, class: "add-answer-link"
+      = link_to "add answer",'#', data: { question_id: @question.id }, class: "add-answer-link"
     - else
       h3.warning You need to sign in or sign up before continuing
   .add-answer-form.hidden
@@ -24,3 +39,7 @@
           'data-association-insertion-node' => ".attachments"
         br  
         = f.submit 'Add'
+
+= subscribe_to "/comments/#{@question.id}"
+
+= subscribe_to "/questions/#{@question.id}/answers"

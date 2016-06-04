@@ -1,0 +1,22 @@
+.edit-question-form.hidden
+  = form_for @question, method: :patch, remote: true do |f|
+    .field
+      = f.label :title 
+      = f.text_field :title, class: 'form-control'
+    .field
+      = f.label :body
+      = f.text_area :body, class: 'form-control', rows: "7"
+    label Attachnemts
+    br
+    ul
+      - @question.attachments.each do |attach|
+        li class="attachment-#{attach.id}"
+          = attach.file.identifier
+          = link_to "remove", attachment_path(attach), method: :delete, remote: true
+    p
+      = link_to_add_association 'Add file',f, :attachments, 
+        partial: "forms/attachment_fields", "data-association-insertion-method" => :before
+    .pull-left 
+      = f.submit "update", class: "btn btn-primary"
+    .pull-right 
+      = link_to 'cancel','#', class: 'btn btn-default cancel-edit-form'

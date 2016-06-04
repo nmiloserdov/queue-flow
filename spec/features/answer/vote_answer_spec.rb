@@ -40,7 +40,7 @@ feature 'user votes answer' do
     visit question_path(owner_answer.question)
     within '.answers-container' do
       find('.upvote-btn').click
-      expect(page).to have_content "Вы не можете голосовать за себя"
     end
+    expect(page).to have_content "Вы не можете голосовать за себя"
   end
 end
