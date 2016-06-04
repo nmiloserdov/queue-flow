@@ -12,7 +12,7 @@ feature 'Create comment' do
       visit question_path(question)
       within '.question-basic' do
         click_on 'add comment'
-        fill_in :body, with: comment.body
+        fill_in 'Body', with: comment.body
         click_on "add"
       end
       expect(page).to have_content comment.body

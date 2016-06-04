@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
 
-  let!(:user)     { create(:user) }
-  let(:answer)    { create(:answer) }
-  let(:question) { create(:question) }
+  let!(:user)    { create(:user) }
+  let(:answer)   { create(:answer) }
+  let!(:question) { create(:question) }
   let(:comment)  { create(:comment, user: user, commentable: question) }
 
   describe "#create" do
@@ -67,11 +67,11 @@ RSpec.describe CommentsController, type: :controller do
       end
 
       before do
-        create(:comment, user: @user)
+       @owner_comment = create(:comment, user: @user, commentable: question)
       end
 
       it "deletes" do
-        expect { delete :destroy, id: comment, format: :js }
+        expect { delete :destroy, id: @owner_comment, format: :js }
           .to change(Comment, :count).by(-1)
       end
     end
