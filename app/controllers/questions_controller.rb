@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
     @answers = @question.answers
     @answer = Answer.new
     @answer.attachments.build
+    @comment = Comment.new
   end
   
   def new

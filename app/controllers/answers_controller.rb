@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params.merge(user: current_user))
+    @comment = Comment.new
     if @answer.save 
       flash[:notice] = "Answer successfully added."      
     else
