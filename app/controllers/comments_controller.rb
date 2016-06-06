@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
       format.js do
         if @comment.save && @commentable.save
           load_question
-          PrivatePub.publish_to "/comments/#{@question.id}",
+          PrivatePub.publish_to "/question/#{@question.id}/comments",
             { comment: @comment.to_json, method: :create }
           render nothing: true
         else
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       format.js do
         if current_user.author_of?(@comment) && @comment.destroy
-          PrivatePub.publish_to "/comments/#{@question.id}",
+          PrivatePub.publish_to "/question/#{@question.id}/comments",
             { comment: @comment.to_json, method: :destroy }
         end
         render nothing: true

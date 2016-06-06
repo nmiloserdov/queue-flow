@@ -40,6 +40,6 @@
         br  
         = f.submit 'Add'
 
-= subscribe_to "/comments/#{@question.id}"
+= subscribe_to "/question/#{@question.id}/comments"
 
 = subscribe_to "/questions/#{@question.id}/answers"

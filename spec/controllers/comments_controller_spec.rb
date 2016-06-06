@@ -25,7 +25,7 @@ RSpec.describe CommentsController, type: :controller do
       context "when success" do
         it "renders json" do
           post :create, question_id: question, comment: attributes_for(:comment), format: :js
-          expect(response.header['Content-Type']).to include('text/javascript')
+          expect(response.body).to be_blank
         end
         
         it "creates comment" do
