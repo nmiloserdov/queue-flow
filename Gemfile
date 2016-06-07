@@ -13,6 +13,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rubocop', require: false
 gem 'devise'
+gem 'responders'
+gem 'thin'
+
 
 # layout
 gem "slim-rails"
@@ -31,7 +34,6 @@ gem 'remotipart'
 
 # readltime
 gem 'private_pub'
-gem 'thin'
 
 
 group :test do
