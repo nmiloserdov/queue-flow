@@ -1,21 +1,16 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
+  respond_to :js, :json
+
   def create
     load_commentable
-    @comment = Comment.new(comment_params.merge({ user: current_user }))
-    @commentable.comments << @comment
-    respond_to do |format|
-      format.js do
-        if @comment.save && @commentable.save
-          load_question
-          PrivatePub.publish_to "/question/#{@question.id}/comments",
-            { comment: @comment.to_json, method: :create }
-          render nothing: true
-        else
-          # render js template
-        end
-      end
+    @comment = @commentable.comments.create(comment_params.merge({user: current_user}))
+    respond_with(@comment)
+    if @comment.valid?
+      load_question
+      PrivatePub.publish_to "/question/#{@question.id}/comments",
+        { comment: @comment.to_json, method: :create }
     end
   end
 

@@ -2,42 +2,31 @@ class AnswersController < ApplicationController
   include Voted
   
   before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :load_answer, only: [:destroy, :update] 
+  before_action :load_answer, only: [:destroy, :update, :best] 
+  before_action :load_question, only: [:create]
+
+  respond_to :js, :json
 
   def create
-    @question = Question.find(params[:question_id])
-    @answer = @question.answers.new(answer_params.merge(user: current_user))
     @comment = Comment.new
-    if @answer.save 
-      flash[:notice] = "Answer successfully added."      
-    else
-      flash[:alert] = "Answer not created."
-    end
+    @answer = @question.answers.create(answer_params.merge(user: current_user))
+    respond_with(@answer)
   end
   
   def destroy
-    if current_user.author_of?(@answer) && @answer.destroy
-      flash[:notice] = "Your answer is deleted."
-    else
-      flash[:notice] = "You cant delete not your answer"
+    if current_user.author_of?(@answer)
+      respond_with(@answer.destroy)
     end
   end
   
   def update
-    if @answer.update(answer_params)
-      @question = @answer.question
-      flash[:notice] = "Your answer updated"
-    else
-      flash[:alert]  = "Your answer not-updated"
-    end
+    @question = @answer.question
+    respond_with(@answer.update(answer_params))
   end
   
   def best
-    @answer = Answer.find(params[:answer_id])
     if current_user.author_of?(@answer.question)
-      @answer.make_best
-    else
-      render status: 403
+      respond_with(@answer.make_best)
     end
   end
 
@@ -48,7 +37,11 @@ class AnswersController < ApplicationController
   end
 
   def load_answer
-    @answer = Answer.find(params[:id])
+    id = params[:id] || params[:answer_id]
+    @answer = Answer.find(id)
   end
-  
+
+  def load_question
+    @question = Question.find(params[:question_id])
+  end
 end

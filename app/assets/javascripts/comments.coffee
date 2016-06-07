@@ -1,6 +1,6 @@
 $ ->
   question_id = $('.update-question-link').data('questionId')
-  PrivatePub.subscribe '/comments/' + question_id, (data, chanel) ->
+  PrivatePub.subscribe '/question/' + question_id + '/comments', (data, chanel) ->
     comment = $.parseJSON(data['comment'])
     id = comment.commentable_id
     commentable = comment.commentable_type.toLowerCase()

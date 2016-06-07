@@ -14,7 +14,7 @@ feature "User delete answer" do
     fill_in "Body",  with: question.body
     click_on 'Ask'
     page.find('.delete-question-link').trigger("click")
-    expect(page).to have_content("Your question successfully deleted.")
+    expect(page).to have_content("Question was successfully destroyed.")
   end
   
   scenario "user delete not his question" do

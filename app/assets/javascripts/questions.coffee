@@ -27,15 +27,13 @@ $ ->
 
   PrivatePub.subscribe '/questions', (data, chanel) ->
     question = $.parseJSON(data['question'])
-    # как рендерить темплейт?
+    # TODO template
     $('.questions-container').prepend('<p>'+question.body+'<p>')
     $('.questions-container').prepend('<p>'+question.title+'<p>')
 
   PrivatePub.subscribe '/comments', (data, chanel) ->
     console.log(data)
-    # question = $.parseJSON(data['question'])
-    # # как рендерить темплейт?
-    # $('.questions-container').prepend('<p>'+question.body+'<p>')
-    # $('.questions-container').prepend('<p>'+question.title+'<p>')
-
-# $(document).on('page:load', ready)
+    question = $.parseJSON(data['question'])
+    # TODO template
+    $('.questions-container').prepend('<p>'+question.body+'<p>')
+    $('.questions-container').prepend('<p>'+question.title+'<p>')

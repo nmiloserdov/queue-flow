@@ -1,6 +1,7 @@
 .question-cont.col-md-8.col-md-offset-2
   .edit-question-form
-    = semantic_form_for @question do |f|
+    - @question.attachments.build
+    = semantic_form_for @question  do |f|
       .edit-title-cont
         = f.inputs do
           = f.label :title
