@@ -21,6 +21,7 @@ div class="answer-cont answer-#{answer.id} col-md-12 #{answer.best? ? 'best-answ
         = link_to answer_path(answer), data: {answer_id: answer.id}, method: :delete, remote: true, class: "delete-answer-link" do
           i class="fa fa-times delete-button" aria-hidden="true"
   p.body-answer= answer.body
+
   /* attachments */
   - if answer.attachments.present?
     p Attachments:
@@ -35,7 +36,8 @@ div class="answer-cont answer-#{answer.id} col-md-12 #{answer.best? ? 'best-answ
   /* comments */
   = render 'comments/comments_section', commentable: answer
 
-  = link_to 'add comment', '#', class: "add-comment-btn", data: { form_id: answer.id, type: :answer }
+  - if current_user
+    = link_to 'add comment', '#', class: "add-comment-btn", data: { form_id: answer.id, type: :answer }
   
   - if @comment
     div class="comment-form comment-answer-form-#{answer.id} hidden"

@@ -3,67 +3,58 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show ]
   before_action :load_question, only: [:show, :edit, :update, :destroy, :vote]
+  before_action :build_association_objects, only: :show
 
+
+  respond_to :js
+  respond_to :json, only: [:create]
   
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
   
   def show
-    @answers = @question.answers
-    @answer = Answer.new
-    @answer.attachments.build
-    @comment = Comment.new
+    respond_with @question
   end
   
   def new
-    @question = Question.new
-    @question.attachments.build
+    respond_with(@question = Question.new)
   end
   
   def edit; end
   
   def create 
-    @question = Question.new(question_params.merge(user: current_user))
-    if @question.save
-      respond_to do |format|
-        format.html do 
-          PrivatePub.publish_to "/questions", question: @question.to_json
-          redirect_to @question
-        end
-      end
-    else
-      flash[:error] = 'Your question not created.' 
-      render :new 
-    end
+    respond_with(@question = Question.create(question_params.merge(user: current_user)))
+    PrivatePub.publish_to "/questions", question: @question.to_json if @question.valid?
   end
   
   def update
-    if @question.update(question_params)
-      flash[:notice] = "Your question successfuly updated."
-    else
-      flash[:alert] = "Your question not updated."
-    end
+    @question.update(question_params)
+    respond_with @question
   end
   
   def destroy
-    if current_user.author_of?(@question) and @question.destroy
-      flash[:notice] = "Your question successfully deleted."
+    if current_user.author_of?(@question)
+      respond_with(@question.destroy)
     else
-      flash[:notice] = "You'r cant delete not your question."
+      render :show
     end
-    redirect_to questions_path
   end 
 
   private
   
-    def load_question
-      question_id = params[:id] || params[:question_id]
-      @question = Question.find(question_id)
-    end
-    
-    def question_params
-      params.require(:question).permit(:body, :title, 
-        attachments_attributes: [:id,:file, :_destroy])
-    end
+  def load_question
+    question_id = params[:id] || params[:question_id]
+    @question = Question.find(question_id)
+  end
+  
+  def question_params
+    params.require(:question).permit(:body, :title, 
+      attachments_attributes: [:id,:file, :_destroy])
+  end
+
+  def build_association_objects
+    @answer = Answer.new
+    @comment = Comment.new
+  end
 end
