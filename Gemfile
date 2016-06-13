@@ -12,7 +12,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'rubocop', require: false
-gem 'devise'
 
 # layout
 gem "slim-rails"
@@ -33,6 +32,10 @@ gem 'remotipart'
 gem 'private_pub'
 gem 'thin'
 
+# authentication
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
