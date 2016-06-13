@@ -36,11 +36,14 @@ gem 'thin'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara'
   gem 'capybara-json'
+  gem 'capybara-email'
   gem 'launchy'
 end
 
@@ -50,6 +53,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'byebug'
   gem 'poltergeist'
+  gem "letter_opener"
   # workflow
   gem 'guard-rails'
   gem 'guard-livereload', '~> 2.5', require: false

@@ -1,5 +1,5 @@
-# Use this hook to configure devise mailer, warden hooks and so forth.
-# Many of these configuration options can be set straight in your model.
+require 'devise/orm/active_record'
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -21,7 +21,6 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -44,6 +43,7 @@ Devise.setup do |config|
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
   config.case_insensitive_keys = [:email]
+  config.allow_unconfirmed_access_for = 1.days
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
@@ -238,8 +238,19 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
+
   config.omniauth :facebook, Rails.application.secrets.facebook_app_id,
     Rails.application.secrets.facebook_app_secret, scope: [:email]
+
+  config.omniauth :twitter,  Rails.application.secrets.twitter_app_id,
+    Rails.application.secrets.twitter_app_secret, {
+    :secure_image_url => 'true',
+    :image_size => 'original',
+    :authorize_params => {
+      :force_login => 'true',
+      :lang => 'en'
+      }
+    }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -1,4 +1,5 @@
 require 'omniauth'
+require 'capybara/email/rspec'
 
 RSpec.configure do |config|
 
@@ -12,3 +13,15 @@ RSpec.configure do |config|
 end
 
 OmniAuth.config.test_mode = true
+
+OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+    provider: 'twitter',
+    uid:      '123545',
+    info: { email: "test@test.com" }
+})
+
+OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+    provider: 'twitter',
+    uid:      '123545'
+})
+

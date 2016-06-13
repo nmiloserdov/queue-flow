@@ -1,36 +1,65 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :answers,   dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :votes
-  has_many :authorizations
-  
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
-      omniauth_providers: [:facebook]
+  has_many :authorizations, dependent: :destroy
 
-  def self.find_for_oauth(auth)
-    authorization = Authorization.where(provider: auth.provider,
-      uid: auth.uid.to_s).first
-    return authorization.user if authorization
+  devise :database_authenticatable, :registerable, :recoverable,
+    :rememberable, :trackable, :validatable, :omniauthable,
+    omniauth_providers: [:facebook, :twitter]
 
-    email = auth.info[:email]
-    user = User.where(email: email).first
-    if user.nil?
-      password = Devise.friendly_token[0, 20]
-      user = User.create!(email: email, password: password,
-        password_confirmation: password)
-    end
-    user.authorizations.create(provider: auth.provider, uid: auth.uid)
-    user
-  end
-  
   def author_of?(post)
     self.id == post.user_id
   end
   
   def cut_name
     self.email.sub(/@.*./,'')
+  end
+
+  def confirm!
+    self.authorizations.first.update_attribute(:access, true)
+    self.authorizations.first.update_attribute(:user_id, self.id)
+    self.email = self.unconfirmed_email
+    self.unconfirmed_email = nil
+    self.confirmation_token = nil
+    self.confirmed_at = Time.now
+    self.save
+  end
+
+  def self.find_for_oauth(auth)
+    authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
+    if authorization.try(:user)
+      authorization.user
+    else
+      self.build_authorization_for_ouath(auth)
+    end
+  end
+
+  private
+
+  def self.build_authorization_for_ouath(auth)
+    email = auth.email || auth.try(:info).try(:email)
+    user = User.where(email: email).first
+
+    # creates auth for user if email is exists
+    if user
+      user.authorizations.create(provider: auth.provider, uid: auth.uid)
+    end
+
+    # creates user and auth if email is present
+    if user.nil? && email.present?
+      password = Devise.friendly_token[0, 20]
+      user = User.create!(email: email, password: password,
+        password_confirmation: password)
+      user.authorizations.create(provider: auth.provider, uid: auth.uid)
+    end
+
+    # creates user object and auth object for the further processing
+    if email.nil? && user.nil?
+      user = User.new(confirmation_token: Devise.friendly_token)
+      user.authorizations.new(provider: auth.provider, uid: auth.uid, access: false)
+    end
+
+    return user
   end
 end

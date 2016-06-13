@@ -31,5 +31,21 @@ feature 'sign up user' do
     click_on 'Sign up'
     expect(page).to have_content("Email has already been taken")
   end
+
+  scenario 'With facebook' do
+    visit new_user_session_path
+    click_on 'Sign in with Facebook'
+    expect(current_path).to eq root_path
+    expect(page).to have_content "Successfully authenticated from Facebook account"
+  end
+  
+  scenario 'With tiwtter' do
+    visit new_user_session_path
+    click_on 'Sign in with Twitter'
+    fill_in 'Email', with: 'test@example.ru'
+    clear_emails
+    click_on "Send confirmations instructions"
+    expect(page).to have_content('Message with confirmation sended')
+  end
   
 end

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   
-  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'omniauth_callbacks' }
 
   root to: "questions#index"
+  get 'confirm_authorization' => 'authorizations#confirm'
   
   concern :votable do
     patch :vote

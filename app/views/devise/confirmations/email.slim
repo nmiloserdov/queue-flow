@@ -1,0 +1,10 @@
+h2 Resend confirmation instructions
+
+= form_for @user, url: user_registration_path(confirmation: true, uid: @auth.uid,
+  provider: @auth.provider), html: { method: :post } do |f| 
+
+  div.field
+    = f.label :email 
+    = f.email_field :email, autofocus: true
+  div.actions
+    = f.submit "Send confirmations instructions"
