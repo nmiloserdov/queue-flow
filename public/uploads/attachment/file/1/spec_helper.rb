@@ -15,7 +15,7 @@ end
 OmniAuth.config.test_mode = true
 
 OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
-    provider: 'twitter',
+    provider: 'facebook',
     uid:      '123545',
     info: { email: "test@test.com" }
 })

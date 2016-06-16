@@ -17,8 +17,7 @@ class User < ActiveRecord::Base
   end
 
   def confirm!
-    self.authorizations.first.update_attribute(:access, true)
-    self.authorizations.first.update_attribute(:user_id, self.id)
+    self.authorizations.first.update(access: true, user_id: self.id)
     self.email = self.unconfirmed_email
     self.unconfirmed_email = nil
     self.confirmation_token = nil

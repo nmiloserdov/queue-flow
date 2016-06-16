@@ -39,11 +39,10 @@ feature 'sign up user' do
     expect(page).to have_content "Successfully authenticated from Facebook account"
   end
   
-  scenario 'With tiwtter' do
+  scenario 'With Twitter' do
     visit new_user_session_path
     click_on 'Sign in with Twitter'
     fill_in 'Email', with: 'test@example.ru'
-    clear_emails
     click_on "Send confirmations instructions"
     expect(page).to have_content('Message with confirmation sended')
   end
