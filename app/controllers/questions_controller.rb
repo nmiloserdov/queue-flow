@@ -4,12 +4,14 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
   before_action :load_question, only: [:show, :edit, :update, :destroy, :vote]
 
-  
+
   def index
+    authorize Question
     @questions = Question.all
   end
   
   def show
+    authorize @question
     @answers = @question.answers
     @answer = Answer.new
     @answer.attachments.build
@@ -17,6 +19,7 @@ class QuestionsController < ApplicationController
   end
   
   def new
+    authorize Question
     @question = Question.new
     @question.attachments.build
   end
@@ -24,6 +27,7 @@ class QuestionsController < ApplicationController
   def edit; end
   
   def create 
+    authorize Question
     @question = Question.new(question_params.merge(user: current_user))
     if @question.save
       respond_to do |format|
@@ -39,6 +43,7 @@ class QuestionsController < ApplicationController
   end
   
   def update
+    authorize @question
     if @question.update(question_params)
       flash[:notice] = "Your question successfuly updated."
     else
@@ -47,6 +52,7 @@ class QuestionsController < ApplicationController
   end
   
   def destroy
+    authorize @question
     if current_user.author_of?(@question) and @question.destroy
       flash[:notice] = "Your question successfully deleted."
     else

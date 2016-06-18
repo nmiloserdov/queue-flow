@@ -1,4 +1,5 @@
 class AuthorizationsController < ActionController::Base
+
   def confirm
     load_user
     if @user.confirmation_token == params[:token]

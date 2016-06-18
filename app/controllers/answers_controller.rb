@@ -1,10 +1,11 @@
 class AnswersController < ApplicationController
   include Voted
-  
+
   before_action :authenticate_user!, only: [:create, :destroy]
   before_action :load_answer, only: [:destroy, :update] 
 
   def create
+    authorize Answer
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params.merge(user: current_user))
     @comment = Comment.new
@@ -16,6 +17,7 @@ class AnswersController < ApplicationController
   end
   
   def destroy
+    authorize @answer
     if current_user.author_of?(@answer) && @answer.destroy
       flash[:notice] = "Your answer is deleted."
     else
@@ -24,6 +26,7 @@ class AnswersController < ApplicationController
   end
   
   def update
+    authorize @answer
     if @answer.update(answer_params)
       @question = @answer.question
       flash[:notice] = "Your answer updated"
@@ -33,6 +36,7 @@ class AnswersController < ApplicationController
   end
   
   def best
+    authorize @answer
     @answer = Answer.find(params[:answer_id])
     if current_user.author_of?(@answer.question)
       @answer.make_best

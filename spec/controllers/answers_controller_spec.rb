@@ -8,38 +8,36 @@ RSpec.describe AnswersController, type: :controller do
  
   describe 'POST #create' do
     sign_in_user
-    context 'with valid params' do
 
+    context 'with valid params' do
       it 'save answer to the database' do
         expect {  post :create, question_id: question, 
-                                answer: attributes_for(:answer),
-                                format: :js }
+          answer: attributes_for(:answer), format: :js }
             .to change(question.answers, :count).by(1)
       end
      
       it 'assigns answer to @user.answer' do
         expect { post :create, question_id: question, 
-              answer: attributes_for(:answer), format: :js }.to change(@user.answers, :count).by(1)
+          answer: attributes_for(:answer), format: :js }.to change(@user.answers, :count).by(1)
       end
     end
     
     context 'with invalid params' do
-      
       let(:invalid_answer) { create(:invalid_answer) }
       
       it 'dont save question in database' do
         expect { post :create, question_id: question, 
-                      answer: attributes_for(:invalid_answer),
-                      format: :js }
+          answer: attributes_for(:invalid_answer), format: :js }
             .to_not change(Answer, :count)
       end
     end
-    
   end
 
   describe 'PATCH #update' do
     sign_in_user    
     
+    let(:answer) { create(:answer, user: @user) }
+
     context 'valid attributes' do
       it 'assigns the requested answer to @answer' do
         patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
@@ -73,15 +71,17 @@ RSpec.describe AnswersController, type: :controller do
   describe 'DELETE #destroy' do  
     sign_in_user
 
+    let(:answer) { create(:answer, user: @user) }
+
     it 'not delete if you are not owner of answer' do 
       expect { delete :destroy, question_id: question, id: answer, format: :js}
-                      .to change(@user.answers, :count).by(0)
+      .to change(@user.answers, :count).by(0)
     end
 
     it 'delete answer' do
       @user.answers << (answer)
       expect { delete :destroy, question_id: question, id: answer, format: :js}
-                      .to change(@user.answers, :count).by(-1)
+        .to change(@user.answers, :count).by(-1)
     end
 
     it 'render tamplate' do
@@ -89,5 +89,4 @@ RSpec.describe AnswersController, type: :controller do
       expect(response).to render_template :destroy
     end
   end
-    
 end

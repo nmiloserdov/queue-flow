@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
+    authorize Comment
     load_commentable
     @comment = Comment.new(comment_params.merge({ user: current_user }))
     @commentable.comments << @comment
@@ -22,6 +23,7 @@ class CommentsController < ApplicationController
   def destroy
     load_comment
     load_question
+    authorize @comment
     respond_to do |format|
       format.js do
         if current_user.author_of?(@comment) && @comment.destroy

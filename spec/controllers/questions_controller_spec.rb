@@ -1,16 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
- 
-  let(:question) { create(:question) }
-
   describe 'GET #index' do
+
+    let!(:questions) { create_list(:question, 2) }
     before { get :index }
-    
-    let(:questions) { create_list(:question, 2) }
 
-    context 'when user not log in' do
-
+    context 'user is not log in' do
       it 'populates an array of all questions' do
         expect(assigns(:questions)).to match_array(questions)
       end
@@ -23,8 +19,9 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to render_template :index
       end      
     end
-
   end
+
+  let(:question) { create(:question) }
   
   describe 'GET #show' do
     before { get :show, id: question }
@@ -111,6 +108,7 @@ RSpec.describe QuestionsController, type: :controller do
   
   describe 'PATCH #update' do
     sign_in_user    
+    let(:question) { create(:question, user: @user) }
     
     context 'valid attributes' do
       it 'assigns the requested question to @question' do
@@ -153,7 +151,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'redirect to view' do
       delete :destroy, id: question
-      expect(response).to redirect_to questions_path
+      expect(response).to redirect_to root_path
     end
   end
 
