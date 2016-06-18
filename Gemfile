@@ -37,10 +37,11 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-
+gem 'pundit'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'pundit-matchers', '~> 1.1.0'
   gem 'capybara'
   gem 'capybara-json'
   gem 'capybara-email'
