@@ -38,6 +38,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'pundit'
+gem 'doorkeeper'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
