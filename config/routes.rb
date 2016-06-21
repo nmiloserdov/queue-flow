@@ -14,6 +14,18 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy], shallow: true
   end
 
+  namespace :api do
+    namespace :v1 do
+      resource :profiles do
+        get :me,    on: :collection
+        get :users, on: :collection
+      end
+    end
+  end
+
+  # collection - without id
+  # member - with id
+
   resources :attachments, only: [:destroy]
 
   resources :questions, concerns: [:commentable, :votable] do
