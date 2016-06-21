@@ -46,6 +46,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-json'
   gem 'capybara-email'
+  gem 'json_spec'
   gem 'launchy'
 end
 
