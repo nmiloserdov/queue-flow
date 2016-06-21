@@ -2,13 +2,15 @@ class Api::V1::ProfilesController < ApplicationController
 
   before_action :doorkeeper_authorize!
 
+  respond_to :json
+
   def me
-    render json: current_resource_owner.to_json
+    respond_with current_resource_owner
   end
 
   def users
-    users = User.where.not(id: current_resource_owner.id)
-    render json: { users: users.to_json }
+    users = User.where.not(id: current_resource_owner)
+    respond_with(users: users)
   end
 
   protected

@@ -74,8 +74,6 @@ describe 'Profile API' do
       end
       
       it "contain users profile" do
-        # expect(response.body).to include_json(users.to_json)
-        byebug
         expect(response.body).to be_json_eql(users.to_json).at_path("users")
       end
     end
