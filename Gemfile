@@ -26,6 +26,12 @@ gem "font-awesome-rails"
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
+
+# json
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
+
 # upload
 gem 'carrierwave'
 gem 'remotipart'
