@@ -116,4 +116,54 @@ describe 'Questions API' do
       end
     end
   end
+
+  describe 'POST /question' do
+    context 'unauthorized' do
+
+      it 'returns 401 status if there is no access_token' do
+        post "/api/v1/questions", format: :json
+        expect(response.status).to eq 401
+      end
+
+      it 'returns 401 status if access_token is invalid' do
+        get "/api/v1/questions", format: :json, access_token: '1234'
+        expect(response.status).to eq 401
+      end
+    end
+
+    context 'authorized' do
+      let(:user)         { create(:user) }
+      let(:access_token) { create(:access_token,resource_owner_id: user.id) }
+
+      context 'good params' do
+        let(:question) { attributes_for(:question) }
+
+        it 'returns 200 status code' do
+          post "/api/v1/questions/", format: :json, access_token: access_token.token, question: question
+          expect(response).to be_success
+        end
+
+        it 'creates question' do
+          expect { post '/api/v1/questions', format: :json,
+            access_token: access_token.token, question: question
+          }.to change(user.questions, :count).by(1)
+        end
+      end
+
+      context 'bad params' do
+        let(:question) { attributes_for(:question, body: nil, title: nil) }
+
+        it 'returns 422 status code' do
+          post "/api/v1/questions/", format: :json, access_token: access_token.token, question: question
+          expect(response.status).to eq 422 
+        end
+
+        it 'dosent create question' do
+          expect { post '/api/v1/questions', format: :json,
+            access_token: access_token.token, question: question
+          }.not_to change(user.questions, :count)
+        end
+      end
+    end
+  end
 end
