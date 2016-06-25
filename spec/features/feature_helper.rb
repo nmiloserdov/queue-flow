@@ -2,10 +2,6 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 RSpec.configure do |config|
-  config.include WaitForAjax, type: :feature
-end
-
-RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
 

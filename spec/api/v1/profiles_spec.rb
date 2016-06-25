@@ -7,17 +7,7 @@ describe 'Profile API' do
 
   describe 'GET /me' do
 
-    context 'unauthorized' do
-      it 'returns 401 status if there is not access_token' do
-        get '/api/v1/profiles/me', format: :json
-        expect(response.status).to eq 401 
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get '/api/v1/profiles/me', format: :json, access_token: '1234'
-        expect(response.status).to eq 401 
-      end
-    end
+    it_behaves_like 'API non-authenticable'
 
     context 'authorizated' do
 
@@ -43,17 +33,9 @@ describe 'Profile API' do
   end
 
   describe '#GET /index' do
-    context 'unauthorized' do
-      it 'returns 401 status if there is not access_token' do
-        get '/api/v1/profiles', format: :json
-        expect(response.status).to eq 401 
-      end
 
-      it 'returns 401 status if access_token is invalid' do
-        get '/api/v1/profiles', format: :json, access_token: '1234'
-        expect(response.status).to eq 401 
-      end
-    end
+    let(:url) { "/api/v1/profiles" }
+    it_behaves_like 'API non-authenticable'
 
     context 'authorized' do
 
@@ -77,5 +59,10 @@ describe 'Profile API' do
         expect(response.body).to be_json_eql(users.to_json).at_path("users")
       end
     end
+  end
+
+  def do_request(options={})
+    url = options[:url].nil? ? '/api/v1/profiles/me' : options.delete(:url)
+    get url, { format: :json }.merge(options)
   end
 end

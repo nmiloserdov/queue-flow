@@ -111,6 +111,7 @@ RSpec.describe Vote, type: :model do
       create(:up_vote, user: another_user, votable: question)
       expect(question.rang).to eq 2
     end
+
     it "when ups and downs" do
       create(:up_vote, user: user, votable: question)
       create(:down_vote, user: another_user, votable: question)
