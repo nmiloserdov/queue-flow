@@ -155,21 +155,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe 'PATCH #vote' do
-    sign_in_user
-    let(:user) { create(:user) }
-    let(:owner_question) { create(:question, user: user) }
+  let(:votable) { create(:question) }
+  it_behaves_like 'Concern Votable'
 
-    it 'render 200 when success' do
-      patch :vote, type: :up, question_id: question
-      expect(response).to have_http_status(200)
-    end
-    
-    it 'render 422 if error' do
-      owner_question.user = @user
-      owner_question.save
-      patch :vote, type: :down, question_id: owner_question
-      expect(response).to have_http_status(422)
-    end
-  end
 end

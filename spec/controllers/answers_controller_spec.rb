@@ -89,4 +89,7 @@ RSpec.describe AnswersController, type: :controller do
       expect(response).to render_template :destroy
     end
   end
+
+  let(:votable) { create(:answer) }
+  it_behaves_like 'Concern Votable'
 end
