@@ -4,7 +4,7 @@ describe 'Questions API' do
 
   describe 'GET /index' do
     
-    it_behaves_like 'API non-authenticable'
+    it_behaves_like 'API authenticable'
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
@@ -55,7 +55,7 @@ describe 'Questions API' do
   describe 'GET #show' do
 
     let(:url) { '/api/v1/questions/1/' }
-    it_behaves_like 'API non-authenticable'
+    it_behaves_like 'API authenticable'
 
     context 'authorized' do
       let(:access_token) { create(:access_token) }
@@ -101,7 +101,7 @@ describe 'Questions API' do
 
   describe 'POST /question' do
 
-    it_behaves_like 'API non-authenticable'
+    it_behaves_like 'API authenticable'
 
     context 'authorized' do
       let(:user)         { create(:user) }

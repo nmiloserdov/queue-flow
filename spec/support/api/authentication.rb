@@ -1,4 +1,4 @@
-shared_examples_for 'API non-authenticable' do
+shared_examples_for 'API authenticable' do
 
   context 'unauthorized' do
 

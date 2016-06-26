@@ -7,7 +7,7 @@ describe 'Profile API' do
 
   describe 'GET /me' do
 
-    it_behaves_like 'API non-authenticable'
+    it_behaves_like 'API authenticable'
 
     context 'authorizated' do
 
@@ -35,7 +35,7 @@ describe 'Profile API' do
   describe '#GET /index' do
 
     let(:url) { "/api/v1/profiles" }
-    it_behaves_like 'API non-authenticable'
+    it_behaves_like 'API authenticable'
 
     context 'authorized' do
 

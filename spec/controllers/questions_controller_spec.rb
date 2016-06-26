@@ -91,7 +91,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it "calls #publish_to" do
-        expect(PrivatePub).to receive(:publish_to)
+        expect(PrivatePub).to receive(:publish_to).with("/questions", instance_of(Hash))
         post :create, question: attributes_for(:question)
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe QuestionsController, type: :controller do
     context "with invalid attributes" do
 
       it "doesn't call #publish_to" do
-        expect(PrivatePub).not_to receive(:publish_to)
+        expect(PrivatePub).not_to receive(:publish_to).with("/questions", instance_of(Hash))
         post :create, question: attributes_for(:invalid_question)
       end
 
