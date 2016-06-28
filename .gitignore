@@ -7,3 +7,4 @@
 /.byebug_history
 /config/database.yml
 /public/uploads
+dump.rdb

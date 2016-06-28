@@ -53,7 +53,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 
 # cron
-gem 'sidetiq'
+# gem 'sidetiq'
 gem 'whenever'
 
 group :test do
@@ -76,6 +76,8 @@ group :development, :test do
   # workflow
   gem 'guard-rails'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'guard-redis'
+  gem 'guard-sidekiq'
 end
 
 group :development do
