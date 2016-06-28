@@ -30,4 +30,9 @@ RSpec.describe Answer, type: :model do
     another_answer.make_best
     expect(question.best_answer).to eq(another_answer) 
   end
+
+  it "calls #send_notification_to_owner after save" do
+    expect(answer).to receive(:send_notification_to_owner)
+    answer.save
+  end
 end
