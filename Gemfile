@@ -48,6 +48,14 @@ gem 'omniauth-twitter'
 gem 'pundit'
 gem 'doorkeeper'
 
+# parallelization
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', require: nil
+
+# cron
+gem 'sidetiq'
+gem 'whenever'
+
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'pundit-matchers', '~> 1.1.0'
