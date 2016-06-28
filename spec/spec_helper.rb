@@ -1,5 +1,8 @@
 require 'omniauth'
 require 'capybara/email/rspec'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.fake!
 
 RSpec.configure do |config|
 
