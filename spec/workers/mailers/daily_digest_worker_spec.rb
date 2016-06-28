@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Mailers::DailyDigestWorker do
 
-
   describe '#perform' do
 
     let!(:users) { create_list(:user, 3)}
