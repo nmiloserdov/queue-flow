@@ -13,7 +13,7 @@
 #   rake "some:great:rake:task"
 # end
 #
-every 1.days do
+every 1.days, at: '1:00PM' do
   runner "Mailer::DailyDigestWorker.perform_async"
 end
 

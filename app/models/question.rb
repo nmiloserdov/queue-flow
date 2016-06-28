@@ -10,6 +10,8 @@ class Question < ActiveRecord::Base
 
   validates  :title, :body, :user_id, presence: true
 
+  scope :daily_delivery, -> { where("created_at >= ?", 1.day.ago) }
+
   def best_answer
     self.answers.find_by(best: true)
   end
