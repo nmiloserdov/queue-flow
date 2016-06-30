@@ -41,5 +41,7 @@ Rails.application.routes.draw do
       [:create, :destroy, :update, :edit], shallow: true do
         patch :best
     end
+    patch :subscribe, to: 'subscriptions#create'
+    patch :unsubscribe, to: 'subscriptions#destroy'
   end
 end
