@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
-  
+
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question: question) }
   let(:another_answer) { create(:answer, question: question) }
@@ -18,7 +18,7 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of :body }
   it { should validate_presence_of :question_id}
   it { should validate_presence_of :user_id}  
-  
+
   it "makes answer best" do
     answer.update(best: true)
     another_answer.save
@@ -32,7 +32,8 @@ RSpec.describe Answer, type: :model do
   end
 
   it "calls #send_notification_to_owner after save" do
-    expect(answer).to receive(:send_notification_to_owner)
+    # here
+    expect(answer).to receive(:send_notification_for_subscriber)
     answer.save
   end
 end

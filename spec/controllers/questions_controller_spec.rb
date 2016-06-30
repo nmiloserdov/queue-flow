@@ -90,6 +90,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to question_path(assigns(:question))
       end
 
+      it "subsribes user after create question" do
+        allow(@user).to receive(:subscribe_to!)
+        post :create, question: attributes_for(:question)
+      end
       it "calls #publish_to" do
         expect(PrivatePub).to receive(:publish_to).with("/questions", instance_of(Hash))
         post :create, question: attributes_for(:question)
@@ -137,7 +141,7 @@ RSpec.describe QuestionsController, type: :controller do
     context 'invalid attributes' do
       let(:old_question) { question }
       before { patch :update, id: question, question: { title: 'title', body: nil}, format: :js} 
-     it "dont't change question attributes" do
+      it "dont't change question attributes" do
         question.reload
         expect(question.title).to eq old_question.title
         expect(question.body).to eq old_question.body

@@ -5,7 +5,7 @@ class Answer < ActiveRecord::Base
   has_many   :comments, as: :commentable, dependent: :destroy
   has_many   :votes, as: :votable
 
-  after_save :send_notification_to_owner
+  after_create :send_notification_for_subscriber
 
   accepts_nested_attributes_for :attachments, reject_if: :all_blank
 
@@ -26,7 +26,7 @@ class Answer < ActiveRecord::Base
 
   private
 
-  def send_notification_to_owner
-    NotificationMailer.new_answer(self).deliver_later
+  def send_notification_for_subscriber
+    Mailers::SubscribersNotificationWorker.perform_async(self)
   end
 end

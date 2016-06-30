@@ -30,6 +30,7 @@ class QuestionsController < ApplicationController
     authorize Question
     @question = Question.new(question_params.merge(user: current_user))
     if @question.save
+      current_user.subscribe_to!(@question)
       respond_to do |format|
         format.html do 
           PrivatePub.publish_to "/questions", question: @question.to_json

@@ -17,6 +17,16 @@ class User < ActiveRecord::Base
   def subscribed_to?(question)
     self.subscriptions.map(&:question_id).include?(question.id)
   end
+
+  def subscribe_to!(question)
+    subscription = Subscription.new(user: self, question: question)
+    true if subscription.save
+  end
+
+  def unsubscribe_from!(question)
+    subscription = Subscription.find_by(user: self, question: question)
+    true if subscription.destroy
+  end
   
   def cut_name
     self.email.sub(/@.*./,'')
