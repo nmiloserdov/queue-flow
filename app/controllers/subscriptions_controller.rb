@@ -4,14 +4,14 @@ class SubscriptionsController < ApplicationController
 
   def create
     load_question
-    Subscription.create(user: current_user, question: @question)
-    render json: { subscription: true }
+    @subs = Subscription.new(user: current_user, question: @question)
+    render json: { subscription: true } if @subs.save
   end
 
   def destroy
     load_question
-    Subscription.find_by(user: current_user, question: @question).destroy
-    render json: { subscription: false }
+    @subs = Subscription.find_by(user: current_user, question: @question)
+    render json: { subscription: false } if @subs && @subs.destroy
   end
 
   private

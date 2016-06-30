@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :questions, dependent: :destroy
   has_many :votes
   has_many :authorizations, dependent: :destroy
-  has_many :subscription, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   devise :database_authenticatable, :registerable, :recoverable,
     :rememberable, :trackable, :validatable, :omniauthable,
@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
 
   def author_of?(post)
     self.id == post.user_id
+  end
+
+  def subscribed_to?(question)
+    self.subscriptions.map(&:question_id).include?(question.id)
   end
   
   def cut_name
@@ -35,6 +39,7 @@ class User < ActiveRecord::Base
       self.build_authorization_for_ouath(auth)
     end
   end
+
 
   private
 

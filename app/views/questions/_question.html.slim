@@ -35,6 +35,19 @@
               - @question.attachments.each do |attach|
                 li = link_to attach.file.identifier, attach.file.url
 
+  
+      - if current_user
+        - if current_user.subscribed_to?(@question)
+          - sub_selector, unsub_selector = '', 'hidden'
+        - else 
+          - sub_selector, unsub_selector = 'hidden', ''
+
+        = link_to 'unsubscribe', question_unsubscribe_path(question),
+          remote: true, method: :patch, class: "unsubscribe-btn #{sub_selector}" 
+        = link_to 'subscribe', question_subscribe_path(question),
+          remote: true, method: :patch, class: "subsribe-btn #{unsub_selector}"
+
+
         /* meta */
         .info-container.col-md-8.col-sm-7.col-xs-8.col-md-offset-2.col-sm-offset-2.col-xs-offset-1
           .pull-left

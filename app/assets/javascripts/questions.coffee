@@ -25,6 +25,16 @@ $ ->
       data.errors.map (value, key) ->
         $.jGrowl(value)
 
+  $('.subsribe-btn, .unsubscribe-btn')
+    .bind "ajax:success", (e, data, status, xhr) ->
+      switch data['subscription']
+        when true
+          $('.unsubscribe-btn').removeClass('hidden')
+          $('.subsribe-btn').addClass('hidden')
+        when false
+          $('.subsribe-btn').removeClass('hidden')
+          $('.unsubscribe-btn').addClass('hidden')
+
   PrivatePub.subscribe '/questions', (data, chanel) ->
     question = $.parseJSON(data['question'])
     # как рендерить темплейт?
@@ -33,9 +43,5 @@ $ ->
 
   PrivatePub.subscribe '/comments', (data, chanel) ->
     console.log(data)
-    # question = $.parseJSON(data['question'])
-    # # как рендерить темплейт?
-    # $('.questions-container').prepend('<p>'+question.body+'<p>')
-    # $('.questions-container').prepend('<p>'+question.title+'<p>')
 
 # $(document).on('page:load', ready)
