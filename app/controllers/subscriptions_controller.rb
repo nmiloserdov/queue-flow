@@ -4,6 +4,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     load_question
+    authorize @question, :subscribe?
     if current_user.subscribe_to!(@question)
       render json: { subscription: true } 
     end
@@ -11,6 +12,7 @@ class SubscriptionsController < ApplicationController
 
   def destroy
     load_question
+    authorize @question, :unsubscribe?
     if current_user.unsubscribe_from!(@question)
       render json: { subscription: false }
     end
