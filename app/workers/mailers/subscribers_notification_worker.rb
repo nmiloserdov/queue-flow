@@ -5,7 +5,7 @@ class Mailers::SubscribersNotificationWorker
 
   def perform(answer)
     answer = Answer.find(answer["id"])
-    answer.question.subscriptions.each do |subscription|
+    answer.question.subscriptions.find_each do |subscription|
       NotificationMailer.new_answer(answer, subscription.user).deliver_later
     end
   end

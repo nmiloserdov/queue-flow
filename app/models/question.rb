@@ -14,7 +14,15 @@ class Question < ActiveRecord::Base
 
   scope :daily_delivery, -> { where("created_at >= ?", 1.day.ago) }
 
+  after_create :subscribe_owner_to_question
+
   def best_answer
     self.answers.find_by(best: true)
+  end
+
+  private
+
+  def subscribe_owner_to_question
+    self.user.subscribe_to!(self)
   end
 end

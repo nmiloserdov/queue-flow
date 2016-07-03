@@ -26,29 +26,4 @@ RSpec.describe NotificationMailer, type: :mailer do
       end
     end
   end
-
-  context 'for subsribers of answer' do
-    let(:users) { create_list(:user, 3) }
-    let(:subscribtions) do
-      users.each { |user| create(:subscriber, user: user, question: question) } 
-    end
-
-    it "creates 3 job" do
-
-    end
-  end
-
-  describe '#send_notification_for_subscriber' do
-    let!(:question) { create(:question) }
-    let(:users)    { create_list(:user, 3) }
-    let(:answer)  { create(:answer, question: question) }
-
-
-    it "sends mail for subscribtions" do
-      # here
-      users.each { |user| Subscription.create(user: user, question: question) } 
-      expect(NotificationMailer).to receive(:new_answer)
-      answer.save
-    end
-  end
 end

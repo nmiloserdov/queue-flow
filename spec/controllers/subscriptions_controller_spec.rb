@@ -13,13 +13,16 @@ RSpec.describe SubscriptionsController, type: :controller do
 
   describe 'PATCH #create' do
 
-    let(:question) { create(:question) }
 
     let(:action) { :create }
+    
+    let(:question) { create(:question) }
     it_behaves_like 'non-authenticated user'
 
     context 'authenticated user' do
       sign_in_user
+
+      let(:question) { create(:question, user: @user) }
 
       it "assigns question to @question" do
         post :create, question_id: question, remote: true

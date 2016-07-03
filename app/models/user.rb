@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   end
 
   def subscribed_to?(question)
-    self.subscriptions.map(&:question_id).include?(question.id)
+    self.subscriptions.exists?(question_id: question.id)
   end
 
   def subscribe_to!(question)
@@ -24,8 +24,12 @@ class User < ActiveRecord::Base
   end
 
   def unsubscribe_from!(question)
-    subscription = Subscription.find_by(user: self, question: question)
-    true if subscription.destroy
+    subscription = Subscription.where(user: self, question: question)
+    if subscription.present? && subscription.destroy_all
+      true
+    else
+      false
+    end
   end
   
   def cut_name
