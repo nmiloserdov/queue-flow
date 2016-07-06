@@ -25,7 +25,9 @@ gem 'cocoon'
 gem "font-awesome-rails"
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'will_paginate', '~> 3.1.0'
 
+gem 'faker'
 
 # json
 gem 'active_model_serializers'
@@ -55,6 +57,10 @@ gem 'sinatra', '>= 1.3.0', require: nil
 # cron
 # gem 'sidetiq'
 gem 'whenever'
+
+# search
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
