@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy], shallow: true
   end
 
+  get :search, to: "search#search"
+
   namespace :api do
     namespace :v1 do
       resources :profiles, only: :index do
