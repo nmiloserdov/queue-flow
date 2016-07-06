@@ -28,5 +28,5 @@ end
       body: answer_body[rand(99)], user_id: users[rand(99)].id) }
 
   3.times { Comment.create!(commentable: question,
-    body: comment_body[index], user_id: users[rand(99)].id) }
+    body: comment_body[rand(99)], user_id: users[rand(99)].id) }
 end

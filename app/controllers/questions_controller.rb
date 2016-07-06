@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
 
   def index
     authorize Question
-    @questions = Question.all
+    @questions = Question.paginate(:page => params[:page], :per_page => 12)
   end
   
   def show
