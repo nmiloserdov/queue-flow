@@ -7,4 +7,8 @@
 /.byebug_history
 /config/database.yml
 /public/uploads
+
 dump.rdb
+
+config/*.sphinx.conf
+db/sphinx*
