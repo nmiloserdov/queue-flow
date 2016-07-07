@@ -4,6 +4,9 @@ require 'capybara/poltergeist'
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
+  ThinkingSphinx::Test.init
+  ThinkingSphinx::Test.start_with_autostop
+
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

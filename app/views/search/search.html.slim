@@ -1,0 +1,10 @@
+- if @result.present?
+  h2 Result
+  - @result.each do |resource|
+    h7= print_search_result_for(resource)
+    br
+  = will_paginate @result 
+- else
+  p Nothing found
+
+

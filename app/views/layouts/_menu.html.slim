@@ -10,9 +10,21 @@ nav.navbar.navbar-default
         a.navbar-brand href=questions_path 
           span Queue 
           |overflow
-
       .collapse.navbar-collapse id="bs-example-navbar-collapse-1"
         ul.nav.navbar-nav.navbar-right
+          li
+            .search-container
+              .serach-filed
+                = form_tag search_path, method: :index, method: :get do
+
+                  = label_tag :scope, nil, class: "hidden"
+                  = search_form_tag
+                  = label_tag :query, nil, class: "hidden"
+                  = text_field_tag :query, nil, placeholder: "поиск"
+                  = submit_tag "Search", class: "btn"
+              .loupe-filed
+                i.fa.fa-search
+              div style="clear:both"
           li
             a href="/" questions
           li  

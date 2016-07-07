@@ -14,3 +14,30 @@
  *= require jquery.jgrowl.min.css
  *= require_self
  */
+
+.search-container{
+  width:100%;
+  height: 23px;
+  border: 1px solid black;
+}
+.loupe-filed{
+  width: 15%;
+  float: left;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 15px;
+
+}
+.serach-filed{
+  width:85%;
+  float:right;
+  input{
+    border:1px solid white;
+    width:100%;
+    height:20px;
+    &:focus{
+      outline: none;
+
+    }
+  }
+}
