@@ -1,12 +1,5 @@
 module SearchHelper 
-
   SCOPES= %w(global question answer comment user)
-
-  def sphinx_search(query, scope=nil, page=nil)
-    query = build_query(query)
-    return nil if query.empty?
-    class_name(scope).search(query, page: page)
-  end
 
   def search_form_tag
     select_tag :scope, options_for_select(SCOPES), class: 'form-control'
@@ -14,6 +7,8 @@ module SearchHelper
 
   def print_search_result_for(resource)
     case resource
+    when User
+      "User: #{resource.email}"
     when Question
       link_to "Question: '#{resource.title}'", question_path(resource)
     when Answer
@@ -25,20 +20,6 @@ module SearchHelper
         link_to "Comment for answer '#{resource.commentable.question.title}'",
           question_path(resource.commentable.question.id)
       end
-    end
-  end
-
-  private
-
-  def build_query(query)
-    ThinkingSphinx::Query.escape(params[:query])
-  end
-
-  def class_name(scope)
-    return ThinkingSphinx if scope.nil? || scope == "global"
-
-    if SCOPES.include?(scope.downcase)
-      scope.camelize.constantize
     end
   end
 end

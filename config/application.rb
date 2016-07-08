@@ -17,6 +17,7 @@ module QueueFlow
 
     config.eager_load_paths += %W(
     #{config.root}/app/workers
+    #{config.root}/lib
     )
     
     config.generators do |g|
