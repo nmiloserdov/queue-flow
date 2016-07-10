@@ -16,6 +16,7 @@ gem "responders"
 gem 'rubocop', require: false
 
 # layout
+gem "slim"
 gem "slim-rails"
 gem "therubyracer" # compile coffee while deployment
 gem "less-rails"               
