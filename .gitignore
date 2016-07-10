@@ -5,10 +5,21 @@
 !/log/.keep
 /tmp
 /.byebug_history
+
+# db
 /config/database.yml
+
+# uploads
 /public/uploads
 
+# redis
 dump.rdb
 
+# private_pub
+config/private_pub.yml
+config/secrets.yml
+
+# sphinx
 config/*.sphinx.conf
 db/sphinx*
+
