@@ -62,6 +62,10 @@ gem 'whenever'
 gem 'mysql2'
 gem 'thinking-sphinx'
 
+# deploy
+gem 'dotenv'
+gem 'dotenv-deployment', require: 'dotenv/deployment'
+
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'pundit-matchers', '~> 1.1.0'
@@ -84,6 +88,11 @@ group :development, :test do
   gem 'guard-livereload', '~> 2.5', require: false
   gem 'guard-redis'
   gem 'guard-sidekiq'
+  # deploy
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
 end
 
 group :development do
