@@ -17,7 +17,7 @@ gem 'rubocop', require: false
 
 # layout
 gem "slim-rails"
-gem "therubyracer"
+gem "therubyracer" # compile coffee while deployment
 gem "less-rails"               
 gem "twitter-bootstrap-rails"   
 gem 'formtastic'
@@ -93,6 +93,7 @@ group :development, :test do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
+  gem 'capistrano-sidekiq', require: false
 end
 
 group :development do

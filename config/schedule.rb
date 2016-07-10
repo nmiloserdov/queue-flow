@@ -17,4 +17,8 @@ every 1.days, at: '1:00PM' do
   runner "Mailer::DailyDigestWorker.perform_async"
 end
 
+every 60.minutes do
+  rake "ts:index"
+end
+
 # Learn more: http://github.com/javan/whenever
