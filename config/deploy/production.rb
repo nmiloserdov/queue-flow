@@ -20,5 +20,6 @@ server '82.196.9.190', user: 'deployer', roles: %w(web app db), primary: true
 set :ssh_options, {
  keys: %w(/Users/nick/.ssh/digital-ocean-nmiloserdov),
  forward_agent: true,
+ port: 4321,
  auth_methods: %w(publickey password)
 }
