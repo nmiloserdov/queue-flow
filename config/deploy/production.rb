@@ -3,6 +3,7 @@ role :web, %w{deployer@82.196.9.190}
 role :db,  %w{deployer@82.196.9.190}
 
 set :rails_env, :production
+set :rbenv_path, '/home/your/.rbenv/'
 set :rbenv_ruby, '2.3.0'
 set :stage, :production
 
