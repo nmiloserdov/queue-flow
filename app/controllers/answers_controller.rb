@@ -9,13 +9,13 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params.merge(user: current_user))
     @comment = Comment.new
-    if @answer.save 
-      flash[:notice] = "Answer successfully added."      
+    if @answer.save
+      flash[:notice] = "Answer successfully added."
     else
       flash[:alert] = "Answer not created."
     end
   end
-  
+
   def destroy
     authorize @answer
     if current_user.author_of?(@answer) && @answer.destroy

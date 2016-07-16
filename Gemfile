@@ -69,6 +69,9 @@ gem 'dotenv-deployment', require: 'dotenv/deployment'
 
 gem 'unicorn'
 
+# cache
+gem 'redis-rails'
+
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'pundit-matchers', '~> 1.1.0'

@@ -7,23 +7,24 @@
   .col-md-7.col-sm-8.col-xs-10.col-md-offset-2.col-sm-offset-2.col-xs-offset-1
     h2 Questions
     .questions-container
-      - @questions.each do |question|
-        .question-cont
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .row
-                .content-cont.col-md-10.col-sm-11.col-xs-11
-                  = link_to question do
-                    h4.title-question= question.title
-                  p.body-question= question.body
-            .info-container.col-md-8.col-sm-7.col-xs-8.col-md-offset-2.col-sm-offset-2.col-xs-offset-1
-                .pull-left
-                  span.info-title author:
-                  span.info-content= question.user.cut_name
-                .pull-right
-                  .answer-count
-                    span.info-title answers:
-                    span.info-content= question.answers.count
+      - cache collection_cache_key_for :question do
+        - @questions.each do |question|
+          .question-cont
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                .row
+                  .content-cont.col-md-10.col-sm-11.col-xs-11
+                    = link_to question do
+                      h4.title-question= question.title
+                    p.body-question= question.body
+              .info-container.col-md-8.col-sm-7.col-xs-8.col-md-offset-2.col-sm-offset-2.col-xs-offset-1
+                  .pull-left
+                    span.info-title author:
+                    span.info-content= question.user.cut_name
+                  .pull-right
+                    .answer-count
+                      span.info-title answers:
+                      span.info-content= question.answers.count
 
 = will_paginate @questions 
 = subscribe_to '/questions'
